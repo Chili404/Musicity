@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'musicity_db'
 ]
 
 MIDDLEWARE = [
@@ -76,10 +77,10 @@ WSGI_APPLICATION = 'musicity.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_name',
+        'NAME': 'music',
         'USER': 'app-1',
-        'PASSWORD': '[MySql-user-password]',
-        'HOST': '127.0.0.1',
+        'PASSWORD': '1234',
+        'HOST': '35.222.9.115',
         'PORT': '3306',
     }
 }
