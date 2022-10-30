@@ -13,6 +13,15 @@
             {{form.artist_id|as_crispy_field}}
         </div>
     </div>
-    <button type="submit" class="btn btn-success"> Submit <i class="fa-solid fa-database"></i></button>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{% url 'track_list' %}" class="btn btn-secondary btn-block btn-lg">
+                <i class="fas fa-stream"></i> Back
+            </a>
+        </div>
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-success btn-block btn-lg"> Submit <i class="fa-solid fa-database"></i></button>
+        </div>
+    </div>
 </form>
 {% endblock content %}

@@ -6,7 +6,13 @@
         <tr>
             <td> Track Name</td>
             <td> Track Length</td>
+            <td> Genre</td>
             <td> Artist</td>
+            <td>
+                <a href="{% url 'track_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+            </td>
         </tr>
     </thead>
     <tbody>
@@ -15,6 +21,18 @@
                 <td>{{track.name}}</td>
                 <td>{{track.duration}}</td>
                 <td>{{track.genre}}</td>
+                <td>{{track.artist_id}}</td>
+                <td>
+                    <a href="{% url 'track_update' track.id %}" class="btn text-secondary" px-0>
+                        <i class="far fa-edit fa-lg"></i>
+                    </a>
+                    <form action="{% url 'track_delete' track.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button class="submit btn">
+                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                        </button>
+                    </form>
+                </td>
             </tr>
         {% endfor %}
     </tbody>
