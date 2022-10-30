@@ -1,5 +1,7 @@
 {% extends "musicity_db/base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-<p>Just testing some wacky CRUD operations</p>
+<form action="" method="post" autocomplete="off">
+    {{form|crispy}}
+</form>
 {% endblock content %}
