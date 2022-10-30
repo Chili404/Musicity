@@ -2,6 +2,17 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <form action="" method="post" autocomplete="off">
-    {{form|crispy}}
+    {% csrf_token %}
+    {{form.name|as_crispy_field}}
+    {{form.duration|as_crispy_field}}
+    <div class="row">
+        <div class="col-md-6">
+            {{form.genre|as_crispy_field}}
+        </div>
+        <div class="col-md-6">
+            {{form.artist_id|as_crispy_field}}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success"> Submit <i class="fa-solid fa-database"></i></button>
 </form>
 {% endblock content %}

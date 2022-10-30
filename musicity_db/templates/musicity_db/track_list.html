@@ -1,5 +1,22 @@
 {% extends "musicity_db/base.html" %}
 
 {% block content %}
-<p>Show list of employees</p>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td> Track Name</td>
+            <td> Track Length</td>
+            <td> Artist</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for track in track_list %}
+            <tr>
+                <td>{{track.name}}</td>
+                <td>{{track.duration}}</td>
+                <td>{{track.genre}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock content %}
