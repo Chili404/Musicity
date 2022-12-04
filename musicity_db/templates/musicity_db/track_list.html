@@ -1,15 +1,49 @@
 {% extends "musicity_db/base.html" %}
 
 {% block content %}
+<a href="{% url 'home' %}" class="btn">
+    <i class="fa-solid fa-arrow-left-long"></i> Back
+</a>
+<h3 class="display-4 text-center" style="font-size: 2.5em">
+    Tracks
+</h3>
 <table class="table table-borderless">
     <thead class="border-bottom font-weight-bold">
         <tr>
-            <td> Track Name</td>
-            <td> Track Length</td>
-            <td> Genre</td>
-            <td> Artist</td>
+            <td> Track Name 
+                <a href="{% url 'track_sort_asc' 'name' %}" class="btn">
+                    <i class="fa-solid fa-angle-down"></i>
+                </a>
+                <a href="{% url 'track_sort_dec' '-name' %}" class="btn">
+                    <i class="fa-solid fa-angle-up"></i>
+                </a>
+            </td>
+            <td> Track Length
+                <a href="{% url 'track_sort_asc' 'duration' %}" class="btn">
+                    <i class="fa-solid fa-angle-down"></i>
+                </a>
+                <a href="{% url 'track_sort_dec' '-duration' %}" class="btn">
+                    <i class="fa-solid fa-angle-up"></i>
+                </a>
+            </td>
+            <td> Genre
+                <a href="{% url 'track_sort_asc' 'genre' %}" class="btn">
+                    <i class="fa-solid fa-angle-down"></i>
+                </a>
+                <a href="{% url 'track_sort_dec' '-genre' %}" class="btn">
+                    <i class="fa-solid fa-angle-up"></i>
+                </a>
+            </td>
+            <td> Artist
+                <a href="{% url 'track_sort_asc' 'artist_id' %}" class="btn">
+                    <i class="fa-solid fa-angle-down"></i>
+                </a>
+                <a href="{% url 'track_sort_dec' '-artist_id' %}" class="btn">
+                    <i class="fa-solid fa-angle-up"></i>
+                </a>
+            </td>
             <td>
-                <a href="{% url 'track_insert' %}" class="btn btn-outline-success">
+                <a href="{% url 'track_insert' %}" class="btn btn-success">
                     <i class="fas fa-plus"></i> Add New
                 </a>
             </td>

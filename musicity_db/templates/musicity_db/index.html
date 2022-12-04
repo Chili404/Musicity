@@ -1,0 +1,33 @@
+{% extends "musicity_db/base.html" %}
+
+{% block content %}
+<h3 class="display-4 text-center" style="font-size: 2.5em">
+    Home
+</h3>
+<hr>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td> 
+                Tables
+            </td>
+            <td>
+                Last Modification Date:
+            </td>
+        </tr>
+    </thead>
+    <tbody>     
+        <tr>
+            <td>
+                <a href="{% url 'track_list' %}">
+                    Tracks
+                    <i class="fa-solid fa-music"></i>
+                </a>
+            </td>
+            <td>
+                00:00:00 DD:MM:YYYY
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endblock content %}

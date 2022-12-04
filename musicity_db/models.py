@@ -4,7 +4,6 @@ from django.db import models
 #TO-DO
 #   -Add Album Model
 
-
 class Artist(models.Model):
     name = models.CharField(max_length=100);
     location = models.CharField(max_length=100);
