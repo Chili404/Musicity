@@ -25,5 +25,13 @@ urlpatterns = [
     path('artist/<int:id>/', views.artist_form, name="artist_update"),
     path('artist/delete/<int:id>/', views.artist_delete, name="artist_delete"),
     path('artist/<str:header>', views.artist_sort_asc, name="artist_sort_asc"),
-    path('artist/<str:header>', views.artist_sort_dec, name="artist_sort_dec")
+    path('artist/<str:header>', views.artist_sort_dec, name="artist_sort_dec"),
+
+    # label urls
+    path('label/', views.label_list, name='label_list'),
+    path('label/form/', views.label_form, name="label_insert"),
+    path('label/<int:id>/', views.label_form, name="label_update"),
+    path('label/delete/<int:id>/', views.label_delete, name="label_delete"),
+    path('label/<str:header>', views.label_sort_asc, name="label_sort_asc"),
+    path('label/<str:header>', views.label_sort_dec, name="label_sort_dec"),
 ]

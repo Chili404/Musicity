@@ -54,3 +54,14 @@ class ArtistForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ArtistForm, self).__init__(*args, **kwargs)
         # self.fields['artist_id'].empty_label = "Select"
+
+class LabelForm(forms.ModelForm):
+    class Meta:
+        model = Label
+        fields = ('name', 'location')
+        labels = {
+            'name' : 'Label Name',
+            'location' : 'Location'
+        }
+    def __init__(self, *args, **kwargs):
+        super(LabelForm, self).__init__(*args, **kwargs)

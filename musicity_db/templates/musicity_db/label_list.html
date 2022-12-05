@@ -1,0 +1,63 @@
+{% extends "musicity_db/base.html" %}
+
+{% block content %}
+<a href="{% url 'home' %}" class="btn">
+    <i class="fa-solid fa-arrow-left-long"></i> Back
+</a>
+<h3 class="display-4 text-center" style="font-size: 2.5em">
+    <i class="fa-solid fa-record-vinyl"></i>
+    Labels
+</h3>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-dark">
+        <thead class="thead-dark font-weight-bold">
+            <tr>
+                <td> Name 
+                    <a href="{% url 'label_sort_asc' 'name' %}" >
+                        <i class="fa-solid fa-angle-down" style="color:gray"></i>
+                    </a>
+                    <a href="{% url 'label_sort_dec' '-name' %}" >
+                        <i class="fa-solid fa-angle-up" style="color:gray"></i>
+                    </a>
+                </td>
+                <td> Location
+                    <a href="{% url 'label_sort_asc' 'location' %}" >
+                        <i class="fa-solid fa-angle-down" style="color:gray"></i>
+                    </a>
+                    <a href="{% url 'label_sort_dec' '-location' %}" >
+                        <i class="fa-solid fa-angle-up" style="color:gray"></i>
+                    </a>
+                </td>
+                <td>
+                    <div class="text-center">
+                        <a href="{% url 'label_insert' %}" class="btn btn-success">
+                            <i class="fas fa-plus"></i> Add New
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for label in label_list %}
+                <tr>
+                    <td>{{label.name}}</td>
+                    <td>{{label.location}}</td>
+                    <td>
+                        <div class="text-center">
+                            <a href="{% url 'label_update' label.id %}" class="btn text-secondary" px-0>
+                                <i class="far fa-edit fa-lg"></i>
+                            </a>
+                            <form action="{% url 'label_delete' label.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button class="submit btn">
+                                    <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
