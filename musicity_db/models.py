@@ -25,7 +25,7 @@ class Album(models.Model):
     )
     name = models.CharField(max_length=100);
     genre = models.CharField(max_length=2, choices=GENRES)
-    artist_id = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    #artist_id = models.ForeignKey(Artist, on_delete=models.CASCADE)
 
 class Track(models.Model):
     GENRES = (

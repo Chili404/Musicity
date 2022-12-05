@@ -4,7 +4,7 @@ from .models import *
 class TrackForm(forms.ModelForm):
     class Meta:
         model=Track
-        fields = ('name', 'duration', 'genre', 'artist_id')#, 'album_id')
+        fields = ('name', 'duration', 'genre')#, 'artist_id', 'album_id')
         labels = {
             'name':'Track Name',
             'duration': 'Track Length (sec)'
@@ -18,15 +18,15 @@ class TrackForm(forms.ModelForm):
 class AlbumForm(forms.ModelForm):
     class Meta:
         model=Album
-        fields = ('name', 'genre', 'artist_id')
+        fields = ('name', 'genre') #'artist_id')
         labels = {
-            'name' : 'Album Name',
-            'artist_id' : 'Artist'
+            'name' : 'Album Name'
+            #'artist_id' : 'Artist'
         }
 
     def __init__(self, *args, **kwargs):
         super(AlbumForm, self).__init__(*args, **kwargs)
-        self.fields['artist_id'].empty_label = "Select"
+        #self.fields['artist_id'].empty_label = "Select"
 
 
 class TrackDurationQueryForm(forms.Form):
