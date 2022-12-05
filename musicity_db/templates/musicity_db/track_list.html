@@ -11,103 +11,128 @@
         Tracks
     </h3>
 </div>
-<div class="card">
-<table class="table table-striped table-bordered table-dark">
-    <thead class="thead-dark font-weight-bold">
-        <tr>
-            <td> Track Name 
-                <a href="{% url 'track_sort_asc' 'name' %}" class="btn">
-                    <i class="fa-solid fa-angle-down", style="color:gray"></i>
-                </a>
-                <a href="{% url 'track_sort_dec' '-name' %}" class="btn">
-                    <i class="fa-solid fa-angle-up" style="color:gray"></i>
-                </a>
-            </td>
-            <td> Track Length
-                <a href="{% url 'track_sort_asc' 'duration' %}" class="btn">
-                    <i class="fa-solid fa-angle-down" style="color:gray"></i>
-                </a>
-                <a href="{% url 'track_sort_dec' '-duration' %}" class="btn">
-                    <i class="fa-solid fa-angle-up" style="color:gray"></i>
-                </a>
-                    <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"  href="#durationcollapse" aria-expanded="false" aria-haspopup="true" style="color:#dbdbdb ">
-                        Select Range
-                    </button>
-                    <div class="collapse" id="durationcollapse">
-                        <form method="POST" action="">
-                            {% csrf_token %}
-                            {{formTime|crispy}}
-                            <div class="text-center">
-                                <input type="submit" name="query_duration" style=" appearance:none;
-                                -webkit-appearance:none; border-radius:10px; background-color:#28A745;
-                                color:White; font-weight:600; border-width: 1px; font-family:Tahoma, sans-serif; font-style: normal;"/>
-                            </div>
-                        </form>
-                    </div>
-            </td>
-            <td> Genre
-                <a href="{% url 'track_sort_asc' 'genre' %}" class="btn">
-                    <i class="fa-solid fa-angle-down" style="color:gray"></i>
-                </a>
-                <a href="{% url 'track_sort_dec' '-genre' %}" class="btn">
-                    <i class="fa-solid fa-angle-up" style="color:gray"></i>
-                </a>
-                    <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"  href="#genrecollapse" aria-expanded="false" aria-haspopup="true" style="color:#dbdbdb ">
-                        Select Genre
-                    </button>
-                    <div class="collapse" id="genrecollapse">
-                        <form method="POST" action="">
-                            {% csrf_token %}
-                            {{formGenre|crispy}}
-                            <div class="text-center">
-                                <input type="submit" name="query_genre" style=" appearance:none;
-                                -webkit-appearance:none; border-radius:10px; background-color:#28A745;
-                                color:White; font-weight:600; border-width: 1px; font-family:Tahoma, sans-serif; font-style: normal;"/>
-                            </div>
-                        </form>
-            </td>
-            <!--<td> Artist
-                <a href="{% url 'track_sort_asc' 'artist_id' %}" class="btn">
-                    <i class="fa-solid fa-angle-down" style="color:gray"></i>
-                </a>
-                <a href="{% url 'track_sort_dec' '-artist_id' %}" class="btn">
-                    <i class="fa-solid fa-angle-up" style="color:gray"></i>
-                </a>
-            </td>-->
-            <td>
-                <a href="{% url 'track_insert' %}" class="btn btn-outline-success">
-                    <i class="fas fa-plus"></i> Add New
-                </a>
-                <a  style="margin-left: 2em;" href="{% url 'track_list' %}" class="btn btn-outline-danger">
-                    <i class="fas fa-plus"></i> Reset
-                </a>
-            </td>
-        </tr>
-    </thead>
-    <tbody>
-        {% for track in track_list %}
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-dark">
+        <thead class="thead-dark font-weight-bold">
             <tr>
-                <td>{{track.name}}</td>
-                <td>{{track.duration}}</td>
-                <td>{{track.genre}}</td>
-                
+                <td>
+                    Name  
+                    <a href="{% url 'track_sort_asc' 'name' %}" >
+                            <i class="fa-solid fa-angle-down", style="color:gray"></i>
+                    </a>
+                    <a style="margin-left: 0em;" href="{% url 'track_sort_dec' '-name' %}" >
+                            <i class="fa-solid fa-angle-up" style="color:gray"></i>
+                    </a>
+                </td>
+                <td> Track Length
+                    <a href="{% url 'track_sort_asc' 'duration' %}" >
+                        <i class="fa-solid fa-angle-down" style="color:gray"></i>
+                    </a>
+                    <a href="{% url 'track_sort_dec' '-duration' %}" >
+                        <i class="fa-solid fa-angle-up" style="color:gray"></i>
+                    </a>
+                    <div>
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"  href="#durationcollapse" aria-expanded="false" aria-haspopup="true" style="color:#dbdbdb ">
+                                Select Range
+                        </button>
+                        <div class="collapse" id="durationcollapse">
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                {{formTime|crispy}}
+                                <div class="text-center">
+                                    <input type="submit" name="query_duration" style=" appearance:none;
+                                        -webkit-appearance:none; border-radius:10px; background-color:#28A745;
+                                        color:White; font-weight:600; border-width: 1px; font-family:Tahoma, sans-serif; font-style: normal;"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+                <td> Genre
+                    <a href="{% url 'track_sort_asc' 'genre' %}" >
+                        <i class="fa-solid fa-angle-down" style="color:gray"></i>
+                    </a>
+                    <a href="{% url 'track_sort_dec' '-genre' %}" >
+                        <i class="fa-solid fa-angle-up" style="color:gray"></i>
+                    </a>
+                    <div>
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"  href="#genrecollapse" aria-expanded="false" aria-haspopup="true" style="color:#dbdbdb ">
+                            Select Genre
+                        </button>
+                        <div class="collapse" id="genrecollapse">
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                {{formGenre|crispy}}
+                                <div class="text-center">
+                                    <input type="submit" name="query_genre" style=" appearance:none;
+                                    -webkit-appearance:none; border-radius:10px; background-color:#28A745;
+                                    color:White; font-weight:600; border-width: 1px; font-family:Tahoma, sans-serif; font-style: normal;"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+                <!--<td> Artist
+                    <a href="{% url 'track_sort_asc' 'artist_id' %}" class="btn">
+                        <i class="fa-solid fa-angle-down" style="color:gray"></i>
+                    </a>
+                    <a href="{% url 'track_sort_dec' '-artist_id' %}" class="btn">
+                        <i class="fa-solid fa-angle-up" style="color:gray"></i>
+                    </a>
+                </td>-->
+                <td> Artist 
+                    <a href="{% url 'track_sort_asc' 'name' %}" >
+                        <i class="fa-solid fa-angle-down", style="color:gray"></i>
+                    </a>
+                    <a href="{% url 'track_sort_dec' '-name' %}" >
+                        <i class="fa-solid fa-angle-up" style="color:gray"></i>
+                    </a>
+                </td>
+                <td> Album 
+                    <a href="{% url 'track_sort_asc' 'name' %}" >
+                        <i class="fa-solid fa-angle-down", style="color:gray"></i>
+                    </a>
+                    <a href="{% url 'track_sort_dec' '-name' %}" >
+                        <i class="fa-solid fa-angle-up" style="color:gray"></i>
+                    </a>
+                </td>
                 <td>
                     <div class="text-center">
-
-                        <a href="{% url 'track_update' track.id %}" class="btn text-secondary" px-0>
-                            <i class="far fa-edit fa-lg"></i>
+                        <a href="{% url 'track_insert' %}" class="btn btn-outline-success">
+                            <i class="fas fa-plus"></i> Add New
                         </a>
-                        <form action="{% url 'track_delete' track.id %}" method="post" class="d-inline">
-                            {% csrf_token %}
-                            <button class="submit btn">
-                                <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
-                            </button>
-                        </form>
+                        <a style="margin-left: 0em;" href="{% url 'track_list' %}" class="btn btn-outline-danger">
+                            <i class="fas fa-plus"></i> Reset
+                        </a>
                     </div>
                 </td>
             </tr>
-        {% endfor %}
-    </tbody>
+        </thead>
+        <tbody>
+            {% for track in track_list %}
+                <tr>
+                    <td>{{track.name}}</td>
+                    <td>{{track.duration}}</td>
+                    <td>{{track.genre}}</td>
+                    <td>{{track.artist_id}}</td>
+                    <td>{{track.album_id}}</td>
+                    <td>
+                        <div class="text-center">
+
+                            <a href="{% url 'track_update' track.id %}" class="btn text-secondary" px-0>
+                                <i class="far fa-edit fa-lg"></i>
+                            </a>
+                            <form action="{% url 'track_delete' track.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button class="submit btn">
+                                    <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
 </table>
 </div>
 {% endblock content %}

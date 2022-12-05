@@ -8,59 +8,65 @@
     <i class="fa-solid fa-compact-disc"></i>
     Albums
 </h3>
-<table class="table table-striped table-bordered table-dark">
-    <thead class="thead-dark font-weight-bold">
-        <tr>
-            <td> Album Name 
-                <a href="{% url 'album_sort_asc' 'name' %}" class="btn">
-                    <i class="fa-solid fa-angle-down" style="color:gray"></i>
-                </a>
-                <a href="{% url 'album_sort_dec' '-name' %}" class="btn">
-                    <i class="fa-solid fa-angle-up" style="color:gray"></i>
-                </a>
-            </td>
-            <td> Genre 
-                <a href="{% url 'album_sort_asc' 'genre' %}" class="btn">
-                    <i class="fa-solid fa-angle-down" style="color:gray"></i>
-                </a>
-                <a href="{% url 'album_sort_dec' '-genre' %}" class="btn">
-                    <i class="fa-solid fa-angle-up" style="color:gray"></i>
-                </a>
-            </td>
-            <td> Artist
-                <a href="{% url 'album_sort_asc' 'artist_id' %}" class="btn">
-                    <i class="fa-solid fa-angle-down" style="color:gray"></i>
-                </a>
-                <a href="{% url 'album_sort_dec' '-artist_id' %}" class="btn">
-                    <i class="fa-solid fa-angle-up" style="color:gray"></i>
-                </a>
-            </td>
-            <td>
-                <a href="{% url 'album_insert' %}" class="btn btn-success">
-                    <i class="fas fa-plus"></i> Add New
-                </a>
-            </td>
-        </tr>
-    </thead>
-    <tbody>
-        {% for album in album_list %}
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-dark">
+        <thead class="thead-dark font-weight-bold">
             <tr>
-                <td>{{album.name}}</td>
-                <td>{{album.genre}}</td>
-                <td>{{album.artist_id}}</td>
-                <td>
-                    <a href="{% url 'album_update' album.id %}" class="btn text-secondary" px-0>
-                        <i class="far fa-edit fa-lg"></i>
+                <td> Name 
+                    <a href="{% url 'album_sort_asc' 'name' %}" >
+                        <i class="fa-solid fa-angle-down" style="color:gray"></i>
                     </a>
-                    <form action="{% url 'album_delete' album.id %}" method="post" class="d-inline">
-                        {% csrf_token %}
-                        <button class="submit btn">
-                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
-                        </button>
-                    </form>
+                    <a href="{% url 'album_sort_dec' '-name' %}" >
+                        <i class="fa-solid fa-angle-up" style="color:gray"></i>
+                    </a>
+                </td>
+                <td> Genre 
+                    <a href="{% url 'album_sort_asc' 'genre' %}" >
+                        <i class="fa-solid fa-angle-down" style="color:gray"></i>
+                    </a>
+                    <a href="{% url 'album_sort_dec' '-genre' %}" >
+                        <i class="fa-solid fa-angle-up" style="color:gray"></i>
+                    </a>
+                </td>
+                <td> Artist
+                    <a href="{% url 'album_sort_asc' 'artist_id' %}" >
+                        <i class="fa-solid fa-angle-down" style="color:gray"></i>
+                    </a>
+                    <a href="{% url 'album_sort_dec' '-artist_id' %}" >
+                        <i class="fa-solid fa-angle-up" style="color:gray"></i>
+                    </a>
+                </td>
+                <td>
+                    <div class="text-center">
+                        <a href="{% url 'album_insert' %}" class="btn btn-success">
+                            <i class="fas fa-plus"></i> Add New
+                        </a>
+                    </div>
                 </td>
             </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for album in album_list %}
+                <tr>
+                    <td>{{album.name}}</td>
+                    <td>{{album.genre}}</td>
+                    <td>{{album.artist_id}}</td>
+                    <td>
+                        <div class="text-center">
+                            <a href="{% url 'album_update' album.id %}" class="btn text-secondary" px-0>
+                                <i class="far fa-edit fa-lg"></i>
+                            </a>
+                            <form action="{% url 'album_delete' album.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button class="submit btn">
+                                    <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock content %}

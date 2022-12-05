@@ -5,17 +5,27 @@ from .models import *
 class TrackForm(forms.ModelForm):
     class Meta:
         model = Track
-        fields = ('name', 'duration', 'genre')  # , 'artist_id', 'album_id')
+        fields = ('name', 'duration', 'genre', 'artist_id', 'album_id')
         labels = {
             'name': 'Track Name',
-            'duration': 'Track Length (sec)'
+            'duration': 'Track Length (sec)',
+            'artist_id': 'Artist',
+            'album_id': 'Album'
         }
 
     def __init__(self, *args, **kwargs):
         super(TrackForm, self).__init__(*args, **kwargs)
-        #self.fields['artist_id'].empty_label = "Select"
-        #self.fields['album_id'].empty_label = "Select"
+        self.fields['artist_id'].empty_label = "Select"
+        self.fields['album_id'].empty_label = "Select"
 
+class TrackDurationQueryForm(forms.Form):
+    start_duration = forms.IntegerField(label="Start Time")
+    end_duration = forms.IntegerField(label="End Time")
+
+class TrackGenreQueryForm(forms.ModelForm):
+    class Meta:
+        model=Track
+        fields = ('genre',)
 
 class AlbumForm(forms.ModelForm):
     class Meta:
@@ -30,21 +40,14 @@ class AlbumForm(forms.ModelForm):
         super(AlbumForm, self).__init__(*args, **kwargs)
         self.fields['artist_id'].empty_label = "Select"
 
-
-class TrackDurationQueryForm(forms.Form):
-    start_duration = forms.IntegerField(label="Start Time")
-    end_duration = forms.IntegerField(label="End Time")
-
-class TrackGenreQueryForm(forms.ModelForm):
-    class Meta:
-        model=Track
-        fields = ('genre',)
 class ArtistForm(forms.ModelForm):
     class Meta:
         model = Artist
-        fields = ('name',)
+        fields = ('name', 'location', 'label_id')
         labels = {
             'name': 'Artist Name',
+            'location': 'Location',
+            'label_id': 'Label'
         }
 
     def __init__(self, *args, **kwargs):

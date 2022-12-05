@@ -1,7 +1,9 @@
+import sys
 from django.shortcuts import render, redirect
 from .forms import *
-from .forms import TrackDurationQueryForm
 from .models import *
+from django.db import connection
+
 # Create your views here.
 
 
@@ -14,11 +16,9 @@ def home(request):
 
 def track_list(request):
     track_list = Track.objects.all().order_by('name', 'duration')
-    #track_list = Track.objects.all().order_by('-duration')
-    original_stdout = sys.stdout # Save a reference to the original standard output
-
     form_time = TrackDurationQueryForm(request.POST or None)
     form_genre = TrackGenreQueryForm(request.POST or None)
+    #form = TrackDurationQueryForm(request.POST or None)
     if request.method == "POST":
         if 'query_duration' in request.POST:
             form_time = TrackDurationQueryForm(request.POST)
@@ -46,6 +46,7 @@ def track_list(request):
         #        sys.stdout = original_stdout
     
     context = {'track_list': track_list, 'formTime':form_time, 'formGenre': form_genre}
+    #context = {'track_list': track_list, 'form':form}
     return render(request, "musicity_db/track_list.html", context)
 
 

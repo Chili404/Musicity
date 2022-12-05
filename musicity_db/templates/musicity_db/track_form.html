@@ -5,12 +5,13 @@
     {% csrf_token %}
     {{form.name|as_crispy_field}}
     {{form.duration|as_crispy_field}}
+    {{form.genre|as_crispy_field}}
     <div class="row">
         <div class="col-md-6">
-            {{form.genre|as_crispy_field}}
+            {{form.artist_id|as_crispy_field}}
         </div>
         <div class="col-md-6">
-            {{form.artist_id|as_crispy_field}}
+            {{form.album_id|as_crispy_field}}
         </div>
     </div>
     <div class="row">

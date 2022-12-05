@@ -1,8 +1,7 @@
 from django.urls import path, include
 from . import views
 urlpatterns = [
-    path('home/', views.home, name="home"),
-
+    path('', views.home, name="home"),
     # track urls
     # localhost:p#/employee/list
     path('track/', views.track_list, name="track_list"),

@@ -15,7 +15,8 @@ class Label(models.Model):
 
 class Artist(models.Model):
     name = models.CharField(max_length=100)
-    age = models.IntegerField()
+    location = models.CharField(max_length=100)
+    label_id = models.ForeignKey(Label, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -32,10 +33,15 @@ class Album(models.Model):
         ('hh', 'hip-hop'),
         ('e', 'dance/electronic'),
         ('l', 'latin'),
+        ('e', 'experimental'),
+        ('na', 'N/A')
     )
     name = models.CharField(max_length=100)
     genre = models.CharField(max_length=2, choices=GENRES)
-    #artist_id = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    artist_id = models.ForeignKey(Artist, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 
 class Track(models.Model):
@@ -49,9 +55,14 @@ class Track(models.Model):
         ('hh', 'hip-hop'),
         ('e', 'dance/electronic'),
         ('l', 'latin'),
+        ('e', 'experimental'),
+        ('na', 'N/A')
     )
     name = models.CharField(max_length=100)
     duration = models.IntegerField()
     genre = models.CharField(max_length=2, choices=GENRES)
-    #artist_id = models.ForeignKey(Artist, on_delete=models.CASCADE)
-    # album_id = models.ForeignKey(Album, on_delete=models.CASCADE) #Cascade means if corresponding album is deleted, track will be deleted too
+    artist_id = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    album_id = models.ForeignKey(Album, on_delete=models.CASCADE, blank=True, null=True) #Cascade means if corresponding album is deleted, track will be deleted too
+
+    def __str__(self):
+        return self.name
