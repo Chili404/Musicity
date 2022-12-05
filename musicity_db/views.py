@@ -13,7 +13,6 @@ def home(request):
 
 # track
 
-
 def track_list(request):
     track_list = Track.objects.all().order_by('name', 'duration')
     form_time = TrackDurationQueryForm(request.POST or None)
@@ -175,3 +174,44 @@ def artist_sort_dec(request, header):
     artist_list = Artist.objects.all().order_by(header)
     context = {'artist_list': artist_list}
     return render(request, "musicity_db/artist_list.html", context)
+
+# label
+def label_list(request):
+    label_list = Label.objects.all().order_by('name')
+    context = {'label_list': label_list}
+    return render(request, "musicity_db/label_list.html", context)
+
+def label_form(request, id=0):
+    if request.method == "GET":
+        if id == 0:  # insert
+            form = LabelForm()
+        else:  # update
+            label = Label.objects.get(pk=id)
+            form = LabelForm(instance=artist)
+        return render(request, "musicity_db/label_form.html", {'form': form})
+    else:
+        if id == 0:
+            form = LabelForm(request.POST)
+        else:
+            label = Label.objects.get(pk=id)
+            form = LabelForm(request.POST, instance=label)
+        if form.is_valid():
+            form.save()
+        return redirect('/musicity/label/')
+
+def label_delete(request, id):
+    label = Label.objects.get(pk=id)
+    label.delete()
+    return redirect('/musicity/label/')
+
+
+def label_sort_asc(request, header):
+    label_list = Label.objects.all().order_by(header)
+    context = {'label_list': label_list}
+    return render(request, "musicity_db/label_list.html", context)
+
+
+def label_sort_dec(request, header):
+    label_list = Label.objects.all().order_by(header)
+    context = {'label_list': label_list}
+    return render(request, "musicity_db/label_list.html", context)
