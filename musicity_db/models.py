@@ -5,16 +5,17 @@ from django.db import models
 #   -Add Album Model
 
 
-# class Label(models.Model):
-#     name = models.CharField(max_length=100)
-#     location = models.CharField(max_length=100)
+class Label(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
 
-#     def __str__(self):
-#         return self.name
+    def __str__(self):
+        return self.name
+
 
 class Artist(models.Model):
     name = models.CharField(max_length=100)
-    # location = models.CharField(max_length=100)
+    age = models.IntegerField()
 
     def __str__(self):
         return self.name
@@ -52,15 +53,5 @@ class Track(models.Model):
     name = models.CharField(max_length=100)
     duration = models.IntegerField()
     genre = models.CharField(max_length=2, choices=GENRES)
-<<<<<<< HEAD
     #artist_id = models.ForeignKey(Artist, on_delete=models.CASCADE)
-    #album_id = models.ForeignKey(Album, on_delete=models.CASCADE) #Cascade means if corresponding album is deleted, track will be deleted too
-
-
-
-
-
-=======
-    artist_id = models.ForeignKey(Artist, on_delete=models.CASCADE)
     # album_id = models.ForeignKey(Album, on_delete=models.CASCADE) #Cascade means if corresponding album is deleted, track will be deleted too
->>>>>>> de341e7 (Changed artist icon)
