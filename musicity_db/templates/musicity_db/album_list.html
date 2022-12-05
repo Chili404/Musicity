@@ -5,63 +5,54 @@
     <i class="fa-solid fa-arrow-left-long"></i> Back
 </a>
 <h3 class="display-4 text-center" style="font-size: 2.5em">
-    <i class="fa-solid fa-music"></i>
-    Tracks
+    <i class="fa-solid fa-compact-disc"></i>
+    Albums
 </h3>
 <table class="table table-borderless">
     <thead class="border-bottom font-weight-bold">
         <tr>
-            <td> Track Name 
-                <a href="{% url 'track_sort_asc' 'name' %}" class="btn">
+            <td> Album Name 
+                <a href="{% url 'album_sort_asc' 'name' %}" class="btn">
                     <i class="fa-solid fa-angle-down"></i>
                 </a>
-                <a href="{% url 'track_sort_dec' '-name' %}" class="btn">
+                <a href="{% url 'album_sort_dec' '-name' %}" class="btn">
                     <i class="fa-solid fa-angle-up"></i>
                 </a>
             </td>
-            <td> Track Length
-                <a href="{% url 'track_sort_asc' 'duration' %}" class="btn">
+            <td> Genre 
+                <a href="{% url 'album_sort_asc' 'genre' %}" class="btn">
                     <i class="fa-solid fa-angle-down"></i>
                 </a>
-                <a href="{% url 'track_sort_dec' '-duration' %}" class="btn">
-                    <i class="fa-solid fa-angle-up"></i>
-                </a>
-            </td>
-            <td> Genre
-                <a href="{% url 'track_sort_asc' 'genre' %}" class="btn">
-                    <i class="fa-solid fa-angle-down"></i>
-                </a>
-                <a href="{% url 'track_sort_dec' '-genre' %}" class="btn">
+                <a href="{% url 'album_sort_dec' '-genre' %}" class="btn">
                     <i class="fa-solid fa-angle-up"></i>
                 </a>
             </td>
             <td> Artist
-                <a href="{% url 'track_sort_asc' 'artist_id' %}" class="btn">
+                <a href="{% url 'album_sort_asc' 'artist_id' %}" class="btn">
                     <i class="fa-solid fa-angle-down"></i>
                 </a>
-                <a href="{% url 'track_sort_dec' '-artist_id' %}" class="btn">
+                <a href="{% url 'album_sort_dec' '-artist_id' %}" class="btn">
                     <i class="fa-solid fa-angle-up"></i>
                 </a>
             </td>
             <td>
-                <a href="{% url 'track_insert' %}" class="btn btn-success">
+                <a href="{% url 'album_insert' %}" class="btn btn-success">
                     <i class="fas fa-plus"></i> Add New
                 </a>
             </td>
         </tr>
     </thead>
     <tbody>
-        {% for track in track_list %}
+        {% for album in album_list %}
             <tr>
-                <td>{{track.name}}</td>
-                <td>{{track.duration}}</td>
-                <td>{{track.genre}}</td>
-                <td>{{track.artist_id}}</td>
+                <td>{{album.name}}</td>
+                <td>{{album.genre}}</td>
+                <td>{{album.artist_id}}</td>
                 <td>
-                    <a href="{% url 'track_update' track.id %}" class="btn text-secondary" px-0>
+                    <a href="{% url 'album_update' album.id %}" class="btn text-secondary" px-0>
                         <i class="far fa-edit fa-lg"></i>
                     </a>
-                    <form action="{% url 'track_delete' track.id %}" method="post" class="d-inline">
+                    <form action="{% url 'album_delete' album.id %}" method="post" class="d-inline">
                         {% csrf_token %}
                         <button class="submit btn">
                             <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
