@@ -32,3 +32,8 @@ class AlbumForm(forms.ModelForm):
 class TrackDurationQueryForm(forms.Form):
     start_duration = forms.IntegerField(label="Start Time")
     end_duration = forms.IntegerField(label="End Time")
+
+class TrackGenreQueryForm(forms.ModelForm):
+    class Meta:
+        model=Track
+        fields = ('genre',)

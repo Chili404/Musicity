@@ -15,15 +15,29 @@ def home(request):
 def track_list(request):
     track_list = Track.objects.all().order_by('name', 'duration')
     #track_list = Track.objects.all().order_by('-duration')
-    form = TrackDurationQueryForm(request.POST or None)
+    original_stdout = sys.stdout # Save a reference to the original standard output
+
+    form_time = TrackDurationQueryForm(request.POST or None)
+    form_genre = TrackGenreQueryForm(request.POST or None)
     if request.method == "POST":
-        form = TrackDurationQueryForm(request.POST)
-        if form.is_valid():
-            cursor=connection.cursor()
-            statement = "call QueryDuration({0}, {1})".format(form.cleaned_data['start_duration'], form.cleaned_data['end_duration'])
-            cursor.execute(statement)
-            result = cursor.fetchall()
-            track_list = Track.objects.filter( pk__in = (o[0] for o in result) )
+        if 'query_duration' in request.POST:
+            form_time = TrackDurationQueryForm(request.POST)
+            if form_time.is_valid():
+                cursor=connection.cursor()
+                statement = "call QueryDuration({0}, {1})".format(form_time.cleaned_data['start_duration'], form_time.cleaned_data['end_duration'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                track_list = Track.objects.filter( pk__in = (o[0] for o in result) )
+
+        elif 'query_genre' in request.POST:
+            form_genre = TrackGenreQueryForm(request.POST)
+            if form_genre.is_valid():
+                
+                cursor=connection.cursor()
+                statement = "call QueryGenre(\"{0}\")".format(form_genre.cleaned_data['genre'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                track_list = Track.objects.filter( pk__in = (o[0] for o in result) )
             
         #original_stdout = sys.stdout # Save a reference to the original standard output
         #with open('testing.txt', 'w') as f:
@@ -31,7 +45,7 @@ def track_list(request):
         #        print(form)
         #        sys.stdout = original_stdout
     
-    context = {'track_list': track_list, 'form':form}
+    context = {'track_list': track_list, 'formTime':form_time, 'formGenre': form_genre}
     return render(request, "musicity_db/track_list.html", context)
 
 
