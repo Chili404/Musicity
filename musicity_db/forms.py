@@ -30,10 +30,11 @@ class TrackGenreQueryForm(forms.ModelForm):
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
-        fields = ('name', 'genre', 'artist_id')
+        fields = ('name', 'genre', 'release_date', 'artist_id')
         labels = {
             'name': 'Album Name',
-            'artist_id': 'Artist'
+            'artist_id': 'Artist',
+            'release_date': 'Release Date'
         }
 
     def __init__(self, *args, **kwargs):

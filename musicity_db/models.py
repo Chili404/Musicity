@@ -38,6 +38,7 @@ class Album(models.Model):
     )
     name = models.CharField(max_length=100)
     genre = models.CharField(max_length=2, choices=GENRES)
+    release_date = models.DateField()
     artist_id = models.ForeignKey(Artist, on_delete=models.CASCADE)
 
     def __str__(self):
