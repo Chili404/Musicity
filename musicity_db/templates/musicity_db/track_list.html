@@ -1,50 +1,69 @@
 {% extends "musicity_db/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <a href="{% url 'home' %}" class="btn">
     <i class="fa-solid fa-arrow-left-long"></i> Back
 </a>
-<h3 class="display-4 text-center" style="font-size: 2.5em">
-    Tracks
-</h3>
-<table class="table table-borderless">
-    <thead class="border-bottom font-weight-bold">
+<div class="text-center">
+    <h3 class="display-4 " style="font-size: 2.5em">
+        Tracks
+    </h3>
+</div>
+<div class="card">
+<table class="table table-striped table-bordered table-dark">
+    <thead class="thead-dark font-weight-bold">
         <tr>
             <td> Track Name 
                 <a href="{% url 'track_sort_asc' 'name' %}" class="btn">
-                    <i class="fa-solid fa-angle-down"></i>
+                    <i class="fa-solid fa-angle-down", style="color:gray"></i>
                 </a>
                 <a href="{% url 'track_sort_dec' '-name' %}" class="btn">
-                    <i class="fa-solid fa-angle-up"></i>
+                    <i class="fa-solid fa-angle-up" style="color:gray"></i>
                 </a>
             </td>
             <td> Track Length
                 <a href="{% url 'track_sort_asc' 'duration' %}" class="btn">
-                    <i class="fa-solid fa-angle-down"></i>
+                    <i class="fa-solid fa-angle-down" style="color:gray"></i>
                 </a>
                 <a href="{% url 'track_sort_dec' '-duration' %}" class="btn">
-                    <i class="fa-solid fa-angle-up"></i>
+                    <i class="fa-solid fa-angle-up" style="color:gray"></i>
                 </a>
+                <div class="btn-group">
+                    <button class="btn btn-outline-light btn-sm" type="button" data-toggle="dropdown"  aria-expanded="false" aria-haspopup="true">
+                        Select Range
+                    </button>
+                    <div class="dropdown-menu">
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            {{form|crispy}}
+                            <input type="submit"/>
+                        </form>
+                    </div>
+                </div>
             </td>
             <td> Genre
                 <a href="{% url 'track_sort_asc' 'genre' %}" class="btn">
-                    <i class="fa-solid fa-angle-down"></i>
+                    <i class="fa-solid fa-angle-down" style="color:gray"></i>
                 </a>
                 <a href="{% url 'track_sort_dec' '-genre' %}" class="btn">
-                    <i class="fa-solid fa-angle-up"></i>
+                    <i class="fa-solid fa-angle-up" style="color:gray"></i>
                 </a>
             </td>
-            <td> Artist
+            <!--<td> Artist
                 <a href="{% url 'track_sort_asc' 'artist_id' %}" class="btn">
-                    <i class="fa-solid fa-angle-down"></i>
+                    <i class="fa-solid fa-angle-down" style="color:gray"></i>
                 </a>
                 <a href="{% url 'track_sort_dec' '-artist_id' %}" class="btn">
-                    <i class="fa-solid fa-angle-up"></i>
+                    <i class="fa-solid fa-angle-up" style="color:gray"></i>
                 </a>
-            </td>
+            </td>-->
             <td>
-                <a href="{% url 'track_insert' %}" class="btn btn-success">
+                <a href="{% url 'track_insert' %}" class="btn btn-outline-success">
                     <i class="fas fa-plus"></i> Add New
+                </a>
+                <a  style="margin-left: 2em;" href="{% url 'track_list' %}" class="btn btn-outline-danger">
+                    <i class="fas fa-plus"></i> Reset
                 </a>
             </td>
         </tr>
@@ -55,20 +74,24 @@
                 <td>{{track.name}}</td>
                 <td>{{track.duration}}</td>
                 <td>{{track.genre}}</td>
-                <td>{{track.artist_id}}</td>
+                
                 <td>
-                    <a href="{% url 'track_update' track.id %}" class="btn text-secondary" px-0>
-                        <i class="far fa-edit fa-lg"></i>
-                    </a>
-                    <form action="{% url 'track_delete' track.id %}" method="post" class="d-inline">
-                        {% csrf_token %}
-                        <button class="submit btn">
-                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
-                        </button>
-                    </form>
+                    <div class="text-center">
+
+                        <a href="{% url 'track_update' track.id %}" class="btn text-secondary" px-0>
+                            <i class="far fa-edit fa-lg"></i>
+                        </a>
+                        <form action="{% url 'track_delete' track.id %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button class="submit btn">
+                                <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                            </button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock content %}
