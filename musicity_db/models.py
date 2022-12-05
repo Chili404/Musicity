@@ -1,15 +1,25 @@
 from django.db import models
 
 # Create your models here.
-#TO-DO
+# TO-DO
 #   -Add Album Model
 
-class Artist(models.Model):
-    name = models.CharField(max_length=100);
-    #location = models.CharField(max_length=100);
+
+class Label(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
+
+class Artist(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
 
 class Album(models.Model):
     GENRES = (
@@ -23,9 +33,10 @@ class Album(models.Model):
         ('e', 'dance/electronic'),
         ('l', 'latin'),
     )
-    name = models.CharField(max_length=100);
+    name = models.CharField(max_length=100)
     genre = models.CharField(max_length=2, choices=GENRES)
     #artist_id = models.ForeignKey(Artist, on_delete=models.CASCADE)
+
 
 class Track(models.Model):
     GENRES = (
@@ -39,13 +50,8 @@ class Track(models.Model):
         ('e', 'dance/electronic'),
         ('l', 'latin'),
     )
-    name = models.CharField(max_length=100);
-    duration = models.IntegerField();
+    name = models.CharField(max_length=100)
+    duration = models.IntegerField()
     genre = models.CharField(max_length=2, choices=GENRES)
     #artist_id = models.ForeignKey(Artist, on_delete=models.CASCADE)
-    #album_id = models.ForeignKey(Album, on_delete=models.CASCADE) #Cascade means if corresponding album is deleted, track will be deleted too
-
-
-
-
-
+    # album_id = models.ForeignKey(Album, on_delete=models.CASCADE) #Cascade means if corresponding album is deleted, track will be deleted too

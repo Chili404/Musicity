@@ -1,0 +1,48 @@
+{% extends "musicity_db/base.html" %}
+
+{% block content %}
+<a href="{% url 'home' %}" class="btn">
+    <i class="fa-solid fa-arrow-left-long"></i> Back
+</a>
+<h3 class="display-4 text-center" style="font-size: 2.5em">
+    <i class="fa fa-user" aria-hidden="true"></i>
+    Artists
+</h3>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td> Artist Name
+                <a href="{% url 'artist_sort_asc' 'name' %}" class="btn">
+                    <i class="fa-solid fa-angle-down"></i>
+                </a>
+                <a href="{% url 'artist_sort_dec' '-name' %}" class="btn">
+                    <i class="fa-solid fa-angle-up"></i>
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'artist_insert' %}" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for artist in artist_list %}
+            <tr>
+                <td>{{artist.name}}</td>
+                <td>
+                    <a href="{% url 'artist_update' artist.id %}" class="btn text-secondary" px-0>
+                        <i class="far fa-edit fa-lg"></i>
+                    </a>
+                    <form action="{% url 'artist_delete' artist.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button class="submit btn">
+                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

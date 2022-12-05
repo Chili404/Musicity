@@ -1,12 +1,13 @@
 from django import forms
 from .models import *
 
+
 class TrackForm(forms.ModelForm):
     class Meta:
-        model=Track
-        fields = ('name', 'duration', 'genre')#, 'artist_id', 'album_id')
+        model = Track
+        fields = ('name', 'duration', 'genre')  # , 'artist_id', 'album_id')
         labels = {
-            'name':'Track Name',
+            'name': 'Track Name',
             'duration': 'Track Length (sec)'
         }
 
@@ -15,18 +16,19 @@ class TrackForm(forms.ModelForm):
         #self.fields['artist_id'].empty_label = "Select"
         #self.fields['album_id'].empty_label = "Select"
 
+
 class AlbumForm(forms.ModelForm):
     class Meta:
-        model=Album
-        fields = ('name', 'genre') #'artist_id')
+        model = Album
+        fields = ('name', 'genre', 'artist_id')
         labels = {
-            'name' : 'Album Name'
-            #'artist_id' : 'Artist'
+            'name': 'Album Name',
+            'artist_id': 'Artist'
         }
 
     def __init__(self, *args, **kwargs):
         super(AlbumForm, self).__init__(*args, **kwargs)
-        #self.fields['artist_id'].empty_label = "Select"
+        self.fields['artist_id'].empty_label = "Select"
 
 
 class TrackDurationQueryForm(forms.Form):
@@ -37,3 +39,14 @@ class TrackGenreQueryForm(forms.ModelForm):
     class Meta:
         model=Track
         fields = ('genre',)
+class ArtistForm(forms.ModelForm):
+    class Meta:
+        model = Artist
+        fields = ('name',)
+        labels = {
+            'name': 'Artist Name',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ArtistForm, self).__init__(*args, **kwargs)
+        # self.fields['artist_id'].empty_label = "Select"
