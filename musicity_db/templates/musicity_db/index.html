@@ -2,6 +2,7 @@
 
 {% block content %}
 <h3 class="display-4 text-center" style="font-size: 2.5em">
+    <i class="fa-solid fa-house-chimney"></i>
     Home
 </h3>
 <hr>
@@ -9,9 +10,11 @@
     <thead class="border-bottom font-weight-bold">
         <tr>
             <td> 
+                <i class="fa-solid fa-rectangle-list"></i>
                 Tables
             </td>
             <td>
+                <i class="fa-solid fa-clock"></i>
                 Last Modification Date:
             </td>
         </tr>
@@ -22,6 +25,17 @@
                 <a href="{% url 'track_list' %}">
                     Tracks
                     <i class="fa-solid fa-music"></i>
+                </a>
+            </td>
+            <td>
+                00:00:00 DD:MM:YYYY
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="{% url 'album_list' %}">
+                    Albums
+                    <i class="fa-solid fa-compact-disc"></i>
                 </a>
             </td>
             <td>

@@ -2,13 +2,15 @@ import logging, sys
 
 from django.shortcuts import render,redirect
 from django.db import connection
-from .forms import TrackForm
+from .forms import *
 from .forms import TrackDurationQueryForm
-from .models import Track
+from .models import *
 # Create your views here.
 def home(request):
 
     return render(request, 'musicity_db/index.html')
+
+# track
 
 def track_list(request):
     track_list = Track.objects.all().order_by('name', 'duration')
@@ -66,9 +68,42 @@ def track_sort_dec(request, header):
     context = {'track_list':track_list}
     return render(request, "musicity_db/track_list.html", context)
 
-def track_query_duration(request, start_time, end_time):
-    cursor=connection.cursor()
-    statement = "call QueryDuration({0}, {1})".format(start_time, end_time)
-    cursor.execute(statement)
-    result = cursor.fetchall()
-    return render(result, "musicity_db/track_list.html", {'QueryDuration':results})
+# album 
+
+def album_list(request):
+    album_list = Album.objects.all().order_by('name')
+    context = {'album_list':album_list}
+    return render(request, "musicity_db/album_list.html", context)
+
+def album_form(request, id=0):
+    if request.method == "GET":
+        if id == 0: #insert
+            form = AlbumForm()
+        else: #update
+            album = Album.objects.get(pk=id)
+            form = AlbumForm(instance=album)          
+        return render(request, "musicity_db/album_form.html", {'form':form})
+    else:
+        if id == 0:
+            form = AlbumForm(request.POST)
+        else:
+            album = Album.objects.get(pk=id)
+            form = AlbumForm(request.POST, instance = album)
+        if form.is_valid():
+            form.save()
+        return redirect('/musicity/album/')
+
+def album_delete(request, id):
+    album = Album.objects.get(pk=id)
+    album.delete()
+    return redirect('/musicity/album/')
+
+def album_sort_asc(request, header):
+    album_list = Album.objects.all().order_by(header)
+    context = {'album_list':album_list}
+    return render(request, "musicity_db/album_list.html", context)
+
+def album_sort_dec(request, header):
+    album_list = Album.objects.all().order_by(header)
+    context = {'album_list':album_list}
+    return render(request, "musicity_db/album_list.html", context)
