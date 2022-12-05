@@ -6,53 +6,59 @@
     Home
 </h3>
 <hr>
-<table class="table table-borderless">
-    <thead class="border-bottom font-weight-bold">
-        <tr>
-            <td> 
-                <i class="fa-solid fa-rectangle-list"></i>
-                Tables
-            </td>
-            <td>
-                <i class="fa-solid fa-clock"></i>
-                Last Modification Date:
-            </td>
-        </tr>
-    </thead>
-    <tbody>     
-        <tr>
-            <td>
-                <a href="{% url 'track_list' %}">
-                    Tracks
-                    <i class="fa-solid fa-music"></i>
-                </a>
-            </td>
-            <td>
-                00:00:00 DD:MM:YYYY
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="{% url 'album_list' %}">
-                    Albums
-                    <i class="fa-solid fa-compact-disc"></i>
-                </a>
-            </td>
-            <td>
-                00:00:00 DD:MM:YYYY
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="{% url 'artist_list' %}">
-                    Artists
-                    <i class="fa-solid fa-user"></i>
-                </a>
-            </td>
-            <td>
-                00:00:00 DD:MM:YYYY
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="table-responsive text-center">
+    <table class="table table-borderless">
+        <thead class="border-bottom font-weight-bold">
+                <tr>
+                    <div class="text-center">
+
+                    <td class="w-50"> 
+                        <i class="fa-solid fa-rectangle-list"></i>
+                        Tables
+                    </td>
+                    <td class="w-50">
+                        <i class="fa-solid fa-clock"></i>
+                        Last Modification Date:
+                    </td>
+                </div>
+
+                </tr>
+        </thead>
+        <tbody>     
+            <tr>
+                <td>
+                    <a href="{% url 'track_list' %}">
+                        Tracks
+                        <i class="fa-solid fa-music"></i>
+                    </a>
+                </td>
+                <td>
+                    00:00:00 DD:MM:YYYY
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{% url 'album_list' %}">
+                        Albums
+                        <i class="fa-solid fa-compact-disc"></i>
+                    </a>
+                </td>
+                <td>
+                    00:00:00 DD:MM:YYYY
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{% url 'artist_list' %}">
+                        Artists
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+                </td>
+                <td>
+                    00:00:00 DD:MM:YYYY
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock content %}
