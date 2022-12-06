@@ -19,6 +19,7 @@ def track_list(request):
     form_genre = TrackGenreQueryForm(request.POST or None)
     form_artist = TrackArtistQueryForm(request.POST or None)
     form_album = TrackAlbumQueryForm(request.POST or None)
+    form_name = TrackNameQueryForm(request.POST or None)
     #form = TrackDurationQueryForm(request.POST or None)
     if request.method == "POST":
         if 'query_duration' in request.POST:
@@ -57,6 +58,16 @@ def track_list(request):
                 result = cursor.fetchall()
                 track_list = Track.objects.filter( pk__in = (o[0] for o in result) )
 
+        elif 'query_name' in request.POST:
+            form_name = TrackNameQueryForm(request.POST)
+            if form_name.is_valid():
+                cursor=connection.cursor()
+                statement = "call QueryName(\"{0}\")".format(form_name.cleaned_data['name'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                track_list = Track.objects.filter( pk__in = (o[0] for o in result) )
+
+
             
         #original_stdout = sys.stdout # Save a reference to the original standard output
         #with open('testing.txt', 'w') as f:
@@ -64,7 +75,8 @@ def track_list(request):
         #        print(form)
         #        sys.stdout = original_stdout
     
-    context = {'track_list': track_list, 'formTime':form_time, 'formGenre': form_genre, 'formArtist':form_artist, 'formAlbum':form_album}
+    context = {'track_list': track_list, 'formTime':form_time, 'formGenre': form_genre, 'formArtist':form_artist, 'formAlbum':form_album,
+                    'formName':form_name}
     #context = {'track_list': track_list, 'form':form}
     return render(request, "musicity_db/track_list.html", context)
 
