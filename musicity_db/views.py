@@ -198,6 +198,7 @@ def album_sort_dec(request, header):
 def artist_list(request):
     artist_list = Artist.objects.all().order_by('name')
     form_artist = ArtistNameQueryForm(request.POST or None)
+    form_location = ArtistLocationQueryForm(request.POST or None)
     if request.method == "POST":
         if 'query_artist_name' in request.POST:
             form_artist = ArtistNameQueryForm(request.POST)
@@ -205,6 +206,17 @@ def artist_list(request):
                 cursor = connection.cursor()
                 statement = "call QueryArtistName(\"{0}\")".format(
                     form_artist.cleaned_data['name'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                artist_list = Artist.objects.filter(
+                    pk__in=(o[0] for o in result))
+
+        elif 'query_artist_location' in request.POST:
+            form_location = ArtistLocationQueryForm(request.POST)
+            if form_location.is_valid():
+                cursor = connection.cursor()
+                statement = "call QueryArtistLocation(\"{0}\")".format(
+                    form_location.cleaned_data['location'])
                 cursor.execute(statement)
                 result = cursor.fetchall()
                 artist_list = Artist.objects.filter(
