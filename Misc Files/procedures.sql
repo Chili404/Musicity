@@ -111,3 +111,18 @@ BEGIN
 	WHERE name = in_name;
 END//
 DELIMITER ;
+
+#---------------------------------------------------------
+#--------------------Query Artist Location----------------
+#---------------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryArtistLocation;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryArtistLocation(IN in_location varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_artist
+	WHERE location = in_location;
+END//
+DELIMITER ;

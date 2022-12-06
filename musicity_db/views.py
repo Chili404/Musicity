@@ -126,6 +126,7 @@ def track_sort_dec(request, header):
     context = {'track_list': track_list}
     return render(request, "musicity_db/track_list.html", context)
 
+
 def stream_form(request, id=0):
     if request.method == "GET":
         if id == 0:  # insert
