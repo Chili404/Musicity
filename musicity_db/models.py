@@ -67,3 +67,12 @@ class Track(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Streams(models.Model):
+     #Cascade means if corresponding album is deleted, track will be deleted too
+    track_id = models.OneToOneField(Track, on_delete=models.CASCADE)
+    streams = models.PositiveIntegerField(default=10)
+
+    def __str__(self):
+        return self.streams
