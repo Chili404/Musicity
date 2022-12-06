@@ -36,4 +36,9 @@ urlpatterns = [
     path('label/delete/<int:id>/', views.label_delete, name="label_delete"),
     path('label/<str:header>', views.label_sort_asc, name="label_sort_asc"),
     path('label/<str:header>', views.label_sort_dec, name="label_sort_dec"),
+
+    #top urls
+    path('top10/', views.top_list, name='top_list'),
+    path('top10/<str:header>', views.label_sort_asc, name="label_sort_asc"),
+    path('top10/<str:header>', views.label_sort_dec, name="label_sort_dec"),
 ]

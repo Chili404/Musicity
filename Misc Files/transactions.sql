@@ -37,5 +37,69 @@ BEGIN
 END//
 DELIMITER ;
 call AddStreams();
+
 #Check to add track to top 100
-#Display Latest song/album release 
+#READ UNCOMMITTED AS IT SHOULD UPDATE TO NON_CIMMITED TRANSACTIONS TO BE MORE ACCURATE
+USE music;
+DROP PROCEDURE IF EXISTS Top10;
+SET TRANSACTION  ISOLATION LEVEL READ UNCOMMITTED;
+
+DELIMITER //
+CREATE PROCEDURE Top10()
+BEGIN
+	DECLARE n INT DEFAULT 0;
+	DECLARE i INT DEFAULT 0;
+	DECLARE m_id INT DEFAULT 0;
+    DECLARE ST REAL DEFAULT 0.00;
+	START TRANSACTION;
+	CREATE TABLE tops AS 
+		SELECT t.id, 0 as track_rank, t.name AS name, a.name AS artist, al.name AS album, s.streams AS streams, "hhhhhhhhhhhhhhhhhhhhh" AS stream_w, "Hotubibuibuibu" as hot FROM musicity_db_track AS t
+		INNER JOIN musicity_db_artist AS a ON a.id = t.artist_id_id
+		INNER JOIN musicity_db_album AS al ON t.album_id_id = al.id
+		JOIN musicity_db_streams AS s ON s.track_id_id = t.id
+		ORDER BY streams DESC
+        LIMIT 10;
+	
+	SELECT COUNT(*) FROM tops INTO n;
+	SET i=0;
+	WHILE i< n DO 
+        SELECT id FROM tops LIMIT i,1 INTO m_id;
+        call debug_msg(@m_id, (select concat_ws('','arg1:', m_id)));
+		UPDATE tops SET track_rank = i+1 WHERE id = m_id;
+        
+        SELECT streams FROM tops LIMIT i,1 INTO ST;
+        
+        IF ST > 999999 AND ST < 10000000 THEN
+			SELECT ST/1000000 INTO ST;
+            UPDATE tops SET stream_w = (SELECT CONCAT((SELECT CONVERT((SELECT ROUND(ST, 2)), CHAR)), " Million")) WHERE id = m_id;
+        ELSEIF ST > 9999999 AND ST < 100000000 THEN
+			SELECT ST/1000000 INTO ST;
+            UPDATE tops SET stream_w = (SELECT CONCAT((SELECT CONVERT((SELECT ROUND(ST, 1)), CHAR)), " Million")) WHERE id = m_id;
+		ELSEIF ST > 99999999 AND ST < 1000000000 THEN
+			SELECT ST/1000000 INTO ST;
+            UPDATE tops SET stream_w = (SELECT CONCAT((SELECT CONVERT((SELECT ROUND(ST, 1)), CHAR)), " Million")) WHERE id = m_id;
+		ELSEIF ST > 999999999 THEN
+			SELECT ST/1000000000 INTO ST;
+            UPDATE tops SET stream_w = (SELECT CONCAT((SELECT CONVERT((SELECT ROUND(ST, 2)), CHAR)), " Billion")) WHERE id = m_id;
+        ELSEIF ST <= 999999 THEN
+			SELECT streams FROM tops  WHERE id=m_id INTO ST;
+            UPDATE tops SET stream_w = (SELECT CONVERT(ST, CHAR)) WHERE id = m_id;
+        END IF;
+        SET i = i + 1;
+	END WHILE;
+        
+	#hotness level
+    UPDATE tops SET hot = "Smoldering" WHERE streams > 0;
+    UPDATE tops SET hot = "Heating Up" WHERE streams > 100000;
+    UPDATE tops SET hot = "Hot" WHERE streams > 1000000;
+    UPDATE tops SET hot = "VERY HOT!" WHERE streams > 10000000;
+	UPDATE tops SET hot = "ON FIRE!!" WHERE streams > 100000000;
+	UPDATE tops SET hot = "!!!SUPERNOVA!!!" WHERE streams > 1000000000;
+    
+    SELECT * FROM tops;
+    DROP TABLE tops;
+    COMMIT;
+END//
+DELIMITER ;
+
+call Top10();

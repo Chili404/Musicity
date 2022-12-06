@@ -1,0 +1,50 @@
+{% extends "musicity_db/base.html" %}
+
+{% block content %}
+<a href="{% url 'home' %}" class="btn">
+    <i class="fa-solid fa-arrow-left-long"></i> Back
+</a>
+<h3 class="display-4 text-center" style="font-size: 2.5em">
+    <i class="fa-solid fa-record-vinyl"></i>
+    Top 10
+</h3>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-dark">
+        <thead class="thead-dark font-weight-bold">
+            <tr>
+                <td>
+                    Rank
+                </td>
+                <td> 
+                    Track Name 
+                </td>
+                <td> 
+                    Artist
+                </td>
+                <td>
+                    Album
+                </td>
+                <td>
+                    Streams
+                </td>
+                <td>
+                    Heat-Scale
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in item_list %}
+                <tr>
+                    <td>{{item.1}}</td>
+                    <td>{{item.2}}</td>
+                    <td>{{item.3}}</td>
+                    <td>{{item.4}}</td>
+                    <td>{{item.6}}</td>
+                    <td>{{item.7}}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

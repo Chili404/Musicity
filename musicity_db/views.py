@@ -78,7 +78,7 @@ def track_list(request):
     context = {'track_list': track_list, 'formTime':form_time, 'formGenre': form_genre, 'formArtist':form_artist, 'formAlbum':form_album,
                     'formName':form_name}
     #context = {'track_list': track_list, 'form':form}
-    return render(request, "musicity_db/track_list.html", context)
+    return render(request, "musicity_db/track/track_list.html", context)
 
 
 def track_form(request, id=0):
@@ -88,7 +88,7 @@ def track_form(request, id=0):
         else:  # update
             track = Track.objects.get(pk=id)
             form = TrackForm(instance=track)
-        return render(request, "musicity_db/track_form.html", {'form': form})
+        return render(request, "musicity_db/track/track_form.html", {'form': form})
     else:
         if id == 0:
             form = TrackForm(request.POST)
@@ -109,13 +109,13 @@ def track_delete(request, id):
 def track_sort_asc(request, header):
     track_list = Track.objects.all().order_by(header)
     context = {'track_list': track_list}
-    return render(request, "musicity_db/track_list.html", context)
+    return render(request, "musicity_db/track/track_list.html", context)
 
 
 def track_sort_dec(request, header):
     track_list = Track.objects.all().order_by(header)
     context = {'track_list': track_list}
-    return render(request, "musicity_db/track_list.html", context)
+    return render(request, "musicity_db/track/track_list.html", context)
 
 def stream_form(request, id=0):
     if request.method == "GET":
@@ -125,7 +125,7 @@ def stream_form(request, id=0):
             stream = Streams.objects.get(track_id=id)
             form = StreamForm(instance=stream)
             track = Track.objects.get(pk=id)
-        return render(request, "musicity_db/stream_form.html", {'form': form, 'track': track})
+        return render(request, "musicity_db/track/stream_form.html", {'form': form, 'track': track})
     else:
         if id == 0:
             form = StreamForm(request.POST)
@@ -143,7 +143,7 @@ def stream_form(request, id=0):
 def album_list(request):
     album_list = Album.objects.all().order_by('name')
     context = {'album_list': album_list}
-    return render(request, "musicity_db/album_list.html", context)
+    return render(request, "musicity_db/album/album_list.html", context)
 
 
 def album_form(request, id=0):
@@ -153,7 +153,7 @@ def album_form(request, id=0):
         else:  # update
             album = Album.objects.get(pk=id)
             form = AlbumForm(instance=album)
-        return render(request, "musicity_db/album_form.html", {'form': form})
+        return render(request, "musicity_db/album/album_form.html", {'form': form})
     else:
         if id == 0:
             form = AlbumForm(request.POST)
@@ -174,13 +174,13 @@ def album_delete(request, id):
 def album_sort_asc(request, header):
     album_list = Album.objects.all().order_by(header)
     context = {'album_list': album_list}
-    return render(request, "musicity_db/album_list.html", context)
+    return render(request, "musicity_db/album/album_list.html", context)
 
 
 def album_sort_dec(request, header):
     album_list = Album.objects.all().order_by(header)
     context = {'album_list': album_list}
-    return render(request, "musicity_db/album_list.html", context)
+    return render(request, "musicity_db/album/album_list.html", context)
 
 
 # artist
@@ -188,7 +188,7 @@ def album_sort_dec(request, header):
 def artist_list(request):
     artist_list = Artist.objects.all().order_by('name')
     context = {'artist_list': artist_list}
-    return render(request, "musicity_db/artist_list.html", context)
+    return render(request, "musicity_db/artist/artist_list.html", context)
 
 
 def artist_form(request, id=0):
@@ -198,7 +198,7 @@ def artist_form(request, id=0):
         else:  # update
             artist = Artist.objects.get(pk=id)
             form = ArtistForm(instance=artist)
-        return render(request, "musicity_db/artist_form.html", {'form': form})
+        return render(request, "musicity_db/artist/artist_form.html", {'form': form})
     else:
         if id == 0:
             form = ArtistForm(request.POST)
@@ -219,19 +219,19 @@ def artist_delete(request, id):
 def artist_sort_asc(request, header):
     artist_list = Artist.objects.all().order_by(header)
     context = {'artist_list': artist_list}
-    return render(request, "musicity_db/artist_list.html", context)
+    return render(request, "musicity_db/artist/artist_list.html", context)
 
 
 def artist_sort_dec(request, header):
     artist_list = Artist.objects.all().order_by(header)
     context = {'artist_list': artist_list}
-    return render(request, "musicity_db/artist_list.html", context)
+    return render(request, "musicity_db/artist/artist_list.html", context)
 
 # label
 def label_list(request):
     label_list = Label.objects.all().order_by('name')
     context = {'label_list': label_list}
-    return render(request, "musicity_db/label_list.html", context)
+    return render(request, "musicity_db/label/label_list.html", context)
 
 def label_form(request, id=0):
     if request.method == "GET":
@@ -240,7 +240,7 @@ def label_form(request, id=0):
         else:  # update
             label = Label.objects.get(pk=id)
             form = LabelForm(instance=label)
-        return render(request, "musicity_db/label_form.html", {'form': form})
+        return render(request, "musicity_db/label/label_form.html", {'form': form})
     else:
         if id == 0:
             form = LabelForm(request.POST)
@@ -260,10 +260,23 @@ def label_delete(request, id):
 def label_sort_asc(request, header):
     label_list = Label.objects.all().order_by(header)
     context = {'label_list': label_list}
-    return render(request, "musicity_db/label_list.html", context)
+    return render(request, "musicity_db/label/label_list.html", context)
 
 
 def label_sort_dec(request, header):
     label_list = Label.objects.all().order_by(header)
     context = {'label_list': label_list}
-    return render(request, "musicity_db/label_list.html", context)
+    return render(request, "musicity_db/label/label_list.html", context)
+
+def top_list(request):
+    cursor=connection.cursor()
+    statement = "call Top10()"
+    cursor.execute(statement)
+    result = cursor.fetchall()
+    original_stdout = sys.stdout # Save a reference to the original standard output
+    with open('testing.txt', 'w') as f:
+        sys.stdout = f # Change the standard output to the file we created.
+        print(result)
+        sys.stdout = original_stdout
+    context = {'item_list': result}
+    return render(request, "musicity_db/top/top_list.html", context)
