@@ -81,3 +81,18 @@ BEGIN
 	);
 END//
 DELIMITER ;
+
+#-----------------------------------------------------
+#--------------------Query Track Name----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryName;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryName(IN in_name varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_track
+	WHERE name = in_name;
+END//
+DELIMITER ;
