@@ -96,3 +96,18 @@ BEGIN
 	WHERE name = in_name;
 END//
 DELIMITER ;
+
+#-----------------------------------------------------
+#--------------------Query Artist Name----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryArtistName;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryArtistName(IN in_name varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_artist
+	WHERE name = in_name;
+END//
+DELIMITER ;
