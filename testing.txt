@@ -1,1 +1,12 @@
-call QueryGenre("rb")
+Form valid
+<tr>
+    <th><label for="id_streams">Streams:</label></th>
+    <td>
+      
+      <input type="number" name="streams" value="25" min="0" required id="id_streams">
+      
+      
+        
+      
+    </td>
+  </tr>

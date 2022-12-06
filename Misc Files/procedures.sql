@@ -1,4 +1,13 @@
 #Stored Procedures
+DROP PROCEDURE IF EXISTS `debug_msg`;
+DELIMITER //
+CREATE PROCEDURE debug_msg(enabled INTEGER, msg VARCHAR(255))
+BEGIN
+  IF enabled THEN
+    select concat('** ', msg) AS '** DEBUG:';
+  END IF;
+END //
+
 #-----------------------------------------------------
 #--------------------Query Track Duration----------------
 #-----------------------------------------------------

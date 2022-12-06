@@ -35,6 +35,14 @@ class TrackArtistQueryForm(forms.ModelForm):
             'artist_id' : 'Artist'
         }
 
+class StreamForm(forms.ModelForm):
+    class Meta:
+        model=Streams
+        fields = {'streams',}
+    def __init__(self, *args, **kwargs):
+        super(StreamForm, self).__init__(*args, **kwargs)
+        self.fields['streams'].empty_label = 0
+
 class TrackAlbumQueryForm(forms.ModelForm):
     class Meta:
         model=Track

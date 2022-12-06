@@ -2,16 +2,16 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <form action="" method="post" autocomplete="off">
+    
     {% csrf_token %}
-    {{form.name|as_crispy_field}}
-    {{form.duration|as_crispy_field}}
-    {{form.genre|as_crispy_field}}
     <div class="row">
-        <div class="col-md-6">
-            {{form.artist_id|as_crispy_field}}
+        <div class="col-sm-6 mx-auto">
+            <h4 class="text-center">{{track.name}} by {{track.artist_id}}</h4>
         </div>
-        <div class="col-md-6">
-            {{form.album_id|as_crispy_field}}
+    </div>
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+            {{form.streams|as_crispy_field}}
         </div>
     </div>
     <div class="row">
@@ -21,7 +21,7 @@
             </a>
         </div>
         <div class="col-md-8">
-            <button type="submit" name="edit_stream" class="btn btn-success btn-block btn-lg"> Submit <i class="fa-solid fa-database"></i></button>
+            <button type="submit" class="btn btn-success btn-block btn-lg"> Submit <i class="fa-solid fa-database"></i></button>
         </div>
     </div>
 </form>

@@ -105,6 +105,26 @@ def track_sort_dec(request, header):
     context = {'track_list': track_list}
     return render(request, "musicity_db/track_list.html", context)
 
+def stream_form(request, id=0):
+    if request.method == "GET":
+        if id == 0:  # insert
+            form = StreamForm()
+        else:  # update
+            stream = Streams.objects.get(track_id=id)
+            form = StreamForm(instance=stream)
+            track = Track.objects.get(pk=id)
+        return render(request, "musicity_db/stream_form.html", {'form': form, 'track': track})
+    else:
+        if id == 0:
+            form = StreamForm(request.POST)
+        else:
+            stream = Streams.objects.get(track_id=id)
+            form = StreamForm(request.POST, instance=stream)
+        if form.is_valid():
+            form.save()
+        return redirect('/musicity/track/')
+
+
 # album
 
 
