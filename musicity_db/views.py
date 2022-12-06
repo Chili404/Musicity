@@ -187,7 +187,7 @@ def label_form(request, id=0):
             form = LabelForm()
         else:  # update
             label = Label.objects.get(pk=id)
-            form = LabelForm(instance=artist)
+            form = LabelForm(instance=label)
         return render(request, "musicity_db/label_form.html", {'form': form})
     else:
         if id == 0:
