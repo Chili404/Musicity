@@ -96,6 +96,10 @@ class ArtistNameQueryForm(forms.Form):
     name = forms.CharField(label="Enter Artist Name")
 
 
+class ArtistLocationQueryForm(forms.Form):
+    location = forms.CharField(label="Enter Artist Location")
+
+
 class LabelForm(forms.ModelForm):
     class Meta:
         model = Label
