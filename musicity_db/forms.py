@@ -34,7 +34,14 @@ class TrackArtistQueryForm(forms.ModelForm):
         labels = {
             'artist_id' : 'Artist'
         }
-        #fields = ('genre',)
+
+class TrackAlbumQueryForm(forms.ModelForm):
+    class Meta:
+        model=Track
+        fields = ('album_id',)
+        labels = {
+            'album_id' : 'Album'
+        }
 
 class AlbumForm(forms.ModelForm):
     class Meta:
