@@ -36,3 +36,21 @@ DELIMITER ;
 #testing 
 set @test = "rb";
 call QueryGenre(@test);
+
+#-----------------------------------------------------
+#--------------------Query Track Artist----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryArtist;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryArtist(IN in_artist varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_track
+	WHERE artist_id_id IN (
+		SELECT id FROM musicity_db_artist
+		WHERE name = in_artist
+	);
+END//
+DELIMITER ;
