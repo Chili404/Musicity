@@ -80,3 +80,34 @@ BEGIN
 	);
 END//
 DELIMITER ;
+
+
+#-----------------------------------------------------
+#--------------------Query Artist Name----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryArtistName;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryArtistName(IN in_name varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_artist
+	WHERE name = in_name;
+END//
+DELIMITER ;
+
+#---------------------------------------------------------
+#--------------------Query Artist Location----------------
+#---------------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryArtistLocation;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryArtistLocation(IN in_location varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_artist
+	WHERE location = in_location;
+END//
+DELIMITER ;
