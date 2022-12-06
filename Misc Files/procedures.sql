@@ -54,3 +54,21 @@ BEGIN
 	);
 END//
 DELIMITER ;
+
+#-----------------------------------------------------
+#--------------------Query Track Album----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryAlbum;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryAlbum(IN in_album varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_track
+	WHERE album_id_id IN (
+		SELECT id FROM musicity_db_album
+		WHERE name = in_album
+	);
+END//
+DELIMITER ;
