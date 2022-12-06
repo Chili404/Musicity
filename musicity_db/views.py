@@ -212,7 +212,7 @@ def artist_list(request):
 
     context = {'artist_list': artist_list, 'formArtist': form_artist}
     # context = {'artist_list': artist_list}
-    return render(request, "musicity_db/artist_list.html", context)
+    return render(request, "musicity_db/artist/artist_list.html", context)
 
 
 def artist_form(request, id=0):
@@ -257,7 +257,7 @@ def artist_sort_dec(request, header):
 def label_list(request):
     label_list = Label.objects.all().order_by('name')
     context = {'label_list': label_list}
-    return render(request, "musicity_db/label_list.html", context)
+    return render(request, "musicity_db/label/label_list.html", context)
 
 
 def label_form(request, id=0):
