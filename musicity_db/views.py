@@ -222,7 +222,8 @@ def artist_list(request):
                 artist_list = Artist.objects.filter(
                     pk__in=(o[0] for o in result))
 
-    context = {'artist_list': artist_list, 'formArtist': form_artist}
+    context = {'artist_list': artist_list,
+               'formArtist': form_artist, 'formLocation': form_location}
     # context = {'artist_list': artist_list}
     return render(request, "musicity_db/artist/artist_list.html", context)
 
@@ -308,14 +309,15 @@ def label_sort_dec(request, header):
     context = {'label_list': label_list}
     return render(request, "musicity_db/label/label_list.html", context)
 
+
 def top_list(request):
-    cursor=connection.cursor()
+    cursor = connection.cursor()
     statement = "call Top10()"
     cursor.execute(statement)
     result = cursor.fetchall()
-    original_stdout = sys.stdout # Save a reference to the original standard output
+    original_stdout = sys.stdout  # Save a reference to the original standard output
     with open('testing.txt', 'w') as f:
-        sys.stdout = f # Change the standard output to the file we created.
+        sys.stdout = f  # Change the standard output to the file we created.
         print(result)
         sys.stdout = original_stdout
     context = {'item_list': result}
