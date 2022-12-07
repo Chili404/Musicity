@@ -152,7 +152,39 @@ def stream_form(request, id=0):
 
 def album_list(request):
     album_list = Album.objects.all().order_by('name')
-    context = {'album_list': album_list}
+    form_name = AlbumNameQueryForm(request.POST or None)
+    form_genre = AlbumGenreQueryForm(request.POST or None)
+    form_artist = AlbumArtistQueryForm(request.POST or None)
+
+    if request.method == "POST":
+        if 'query_name' in request.POST:
+            form_name = AlbumNameQueryForm(request.POST)
+            if form_name.is_valid():
+                cursor = connection.cursor()
+                statement = "call QueryAlbumName(\"{0}\")".format(form_name.cleaned_data['name'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                album_list = Album.objects.filter(pk__in=(o[0] for o in result))
+        
+        elif 'query_genre' in request.POST:
+            form_genre = AlbumGenreQueryForm(request.POST)
+            if form_genre.is_valid():
+                cursor = connection.cursor()
+                statement = "call QueryAlbumGenre(\"{0}\")".format(form_genre.cleaned_data['genre'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                album_list = Album.objects.filter(pk__in=(o[0] for o in result))
+
+        elif 'query_artist' in request.POST:
+            form_artist = AlbumArtistQueryForm(request.POST)
+            if form_artist.is_valid():
+                cursor = connection.cursor()
+                statement = "call QueryAlbumArtist(\"{0}\")".format(form_artist.cleaned_data['artist_id'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                album_list = Album.objects.filter(pk__in=(o[0] for o in result))
+
+    context = {'album_list': album_list, 'formName':form_name, 'formGenre':form_genre, 'formArtist':form_artist}
     return render(request, "musicity_db/album/album_list.html", context)
 
 

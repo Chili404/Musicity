@@ -81,6 +81,67 @@ BEGIN
 END//
 DELIMITER ;
 
+#-----------------------------------------------------
+#--------------------Query Track Name----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryName;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryName(IN in_name varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_track
+	WHERE name = in_name;
+END//
+DELIMITER ;
+
+#-----------------------------------------------------
+#--------------------Query Album Name----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryAlbumName;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryAlbumName(IN in_name varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_album
+	WHERE name = in_name;
+END//
+DELIMITER ;
+
+#-----------------------------------------------------
+#--------------------Query Album Genre----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryAlbumGenre;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryAlbumGenre(IN in_genre varchar(2))
+BEGIN
+	SELECT * FROM musicity_db_album
+	WHERE genre = in_genre;
+END//
+
+#-----------------------------------------------------
+#--------------------Query Album Artist----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryAlbumArtist;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryAlbumArtist(IN in_artist varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_album
+	WHERE artist_id_id IN (
+		SELECT id FROM musicity_db_artist
+		WHERE name = in_artist
+	);
+END//
+DELIMITER ;
 
 #-----------------------------------------------------
 #--------------------Query Artist Name----------------

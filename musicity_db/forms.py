@@ -76,6 +76,21 @@ class AlbumForm(forms.ModelForm):
         super(AlbumForm, self).__init__(*args, **kwargs)
         self.fields['artist_id'].empty_label = "Select"
 
+class AlbumNameQueryForm(forms.Form):
+    name = forms.CharField(label="Enter Album Name")
+
+class AlbumGenreQueryForm(forms.ModelForm):
+    class Meta:
+        model = Album
+        fields = ('genre',)
+
+class AlbumArtistQueryForm(forms.ModelForm):
+    class Meta:
+        model = Album
+        fields = ('artist_id',)
+        labels = {
+            'artist_id': 'Artist'
+        }
 
 class ArtistForm(forms.ModelForm):
     class Meta:
