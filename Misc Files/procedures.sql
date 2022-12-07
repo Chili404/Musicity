@@ -202,3 +202,21 @@ BEGIN
 	WHERE location = in_location;
 END//
 DELIMITER ;
+
+#---------------------------------------------------------
+#--------------------Query Artist Label-------------------
+#---------------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryArtistLabel;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryArtistLabel(IN in_label varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_artist
+	WHERE label_id_id IN (
+		SELECT id FROM musicity_db_label
+		WHERE name = in_label
+	);
+END//
+DELIMITER ;
