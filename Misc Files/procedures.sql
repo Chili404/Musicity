@@ -7,6 +7,11 @@ BEGIN
     select concat('** ', msg) AS '** DEBUG:';
   END IF;
 END //
+
+#----------------------------------------------------------------------------------------------------------
+#------------------------------------------Track Queries-----------------------------------------------------
+#----------------------------------------------------------------------------------------------------------
+
 #-----------------------------------------------------
 #--------------------Query Track Duration----------------
 #-----------------------------------------------------
@@ -81,6 +86,109 @@ BEGIN
 END//
 DELIMITER ;
 
+#-----------------------------------------------------
+#--------------------Query Track Name----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryName;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryName(IN in_name varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_track
+	WHERE name = in_name;
+END//
+DELIMITER ;
+
+#----------------------------------------------------------------------------------------------------------
+#------------------------------------------Album Queries-----------------------------------------------------
+#----------------------------------------------------------------------------------------------------------
+
+#-----------------------------------------------------
+#--------------------Query Album Name----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryAlbumName;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryAlbumName(IN in_name varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_album
+	WHERE name = in_name;
+END//
+DELIMITER ;
+
+#-----------------------------------------------------
+#--------------------Query Album Genre----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryAlbumGenre;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryAlbumGenre(IN in_genre varchar(2))
+BEGIN
+	SELECT * FROM musicity_db_album
+	WHERE genre = in_genre;
+END//
+
+#-----------------------------------------------------
+#--------------------Query Album Artist----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryAlbumArtist;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryAlbumArtist(IN in_artist varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_album
+	WHERE artist_id_id IN (
+		SELECT id FROM musicity_db_artist
+		WHERE name = in_artist
+	);
+END//
+DELIMITER ;
+
+#----------------------------------------------------------------------------------------------------------
+#------------------------------------------Label Queries-----------------------------------------------------
+#----------------------------------------------------------------------------------------------------------
+
+#-----------------------------------------------------
+#--------------------Query Label Name----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryLabelName;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryLabelName(IN in_name varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_label
+	WHERE name = in_name;
+END//
+DELIMITER ;
+
+#---------------------------------------------------------
+#--------------------Query Label Location----------------
+#---------------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryLabelLocation;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryLabelLocation(IN in_location varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_label
+	WHERE location = in_location;
+END//
+DELIMITER ;
+
+#----------------------------------------------------------------------------------------------------------
+#------------------------------------------Artist Queries-----------------------------------------------------
+#----------------------------------------------------------------------------------------------------------
 
 #-----------------------------------------------------
 #--------------------Query Artist Name----------------
@@ -109,5 +217,23 @@ CREATE PROCEDURE QueryArtistLocation(IN in_location varchar(100))
 BEGIN
 	SELECT * FROM musicity_db_artist
 	WHERE location = in_location;
+END//
+DELIMITER ;
+
+#---------------------------------------------------------
+#--------------------Query Artist Label-------------------
+#---------------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryArtistLabel;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryArtistLabel(IN in_label varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_artist
+	WHERE label_id_id IN (
+		SELECT id FROM musicity_db_label
+		WHERE name = in_label
+	);
 END//
 DELIMITER ;

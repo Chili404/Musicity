@@ -152,7 +152,46 @@ def stream_form(request, id=0):
 
 def album_list(request):
     album_list = Album.objects.all().order_by('name')
-    context = {'album_list': album_list}
+    form_name = AlbumNameQueryForm(request.POST or None)
+    form_genre = AlbumGenreQueryForm(request.POST or None)
+    form_artist = AlbumArtistQueryForm(request.POST or None)
+
+    if request.method == "POST":
+        if 'query_name' in request.POST:
+            form_name = AlbumNameQueryForm(request.POST)
+            if form_name.is_valid():
+                cursor = connection.cursor()
+                statement = "call QueryAlbumName(\"{0}\")".format(
+                    form_name.cleaned_data['name'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                album_list = Album.objects.filter(
+                    pk__in=(o[0] for o in result))
+
+        elif 'query_genre' in request.POST:
+            form_genre = AlbumGenreQueryForm(request.POST)
+            if form_genre.is_valid():
+                cursor = connection.cursor()
+                statement = "call QueryAlbumGenre(\"{0}\")".format(
+                    form_genre.cleaned_data['genre'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                album_list = Album.objects.filter(
+                    pk__in=(o[0] for o in result))
+
+        elif 'query_artist' in request.POST:
+            form_artist = AlbumArtistQueryForm(request.POST)
+            if form_artist.is_valid():
+                cursor = connection.cursor()
+                statement = "call QueryAlbumArtist(\"{0}\")".format(
+                    form_artist.cleaned_data['artist_id'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                album_list = Album.objects.filter(
+                    pk__in=(o[0] for o in result))
+
+    context = {'album_list': album_list, 'formName': form_name,
+               'formGenre': form_genre, 'formArtist': form_artist}
     return render(request, "musicity_db/album/album_list.html", context)
 
 
@@ -199,6 +238,8 @@ def artist_list(request):
     artist_list = Artist.objects.all().order_by('name')
     form_artist = ArtistNameQueryForm(request.POST or None)
     form_location = ArtistLocationQueryForm(request.POST or None)
+    form_label = ArtistLabelQueryForm(request.POST or None)
+
     if request.method == "POST":
         if 'query_artist_name' in request.POST:
             form_artist = ArtistNameQueryForm(request.POST)
@@ -222,7 +263,19 @@ def artist_list(request):
                 artist_list = Artist.objects.filter(
                     pk__in=(o[0] for o in result))
 
-    context = {'artist_list': artist_list, 'formArtist': form_artist}
+        elif 'query_artist_label' in request.POST:
+            form_label = ArtistLabelQueryForm(request.POST)
+            if form_label.is_valid():
+                cursor = connection.cursor()
+                statement = "call QueryArtistLabel(\"{0}\")".format(
+                    form_label.cleaned_data['label_id'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                artist_list = Artist.objects.filter(
+                    pk__in=(o[0] for o in result))
+
+    context = {'artist_list': artist_list,
+               'formArtist': form_artist, 'formLocation': form_location, 'formLabel': form_label}
     # context = {'artist_list': artist_list}
     return render(request, "musicity_db/artist/artist_list.html", context)
 
@@ -268,7 +321,34 @@ def artist_sort_dec(request, header):
 
 def label_list(request):
     label_list = Label.objects.all().order_by('name')
-    context = {'label_list': label_list}
+    form_name = LabelNameQueryForm(request.POST or None)
+    form_location = LabelLocationQueryForm(request.POST or None)
+
+    if request.method == "POST":
+        if 'query_name' in request.POST:
+            form_name = LabelNameQueryForm(request.POST)
+            if form_name.is_valid():
+                cursor = connection.cursor()
+                statement = "call QueryLabelName(\"{0}\")".format(
+                    form_name.cleaned_data['name'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                label_list = Label.objects.filter(
+                    pk__in=(o[0] for o in result))
+
+        elif 'query_location' in request.POST:
+            form_location = LabelLocationQueryForm(request.POST)
+            if form_location.is_valid():
+                cursor = connection.cursor()
+                statement = "call QueryLabelLocation(\"{0}\")".format(
+                    form_location.cleaned_data['location'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                label_list = Label.objects.filter(
+                    pk__in=(o[0] for o in result))
+
+    context = {'label_list': label_list,
+               'formName': form_name, 'formLocation': form_location}
     return render(request, "musicity_db/label/label_list.html", context)
 
 
@@ -308,14 +388,15 @@ def label_sort_dec(request, header):
     context = {'label_list': label_list}
     return render(request, "musicity_db/label/label_list.html", context)
 
+
 def top_list(request):
-    cursor=connection.cursor()
+    cursor = connection.cursor()
     statement = "call Top10()"
     cursor.execute(statement)
     result = cursor.fetchall()
-    original_stdout = sys.stdout # Save a reference to the original standard output
+    original_stdout = sys.stdout  # Save a reference to the original standard output
     with open('testing.txt', 'w') as f:
-        sys.stdout = f # Change the standard output to the file we created.
+        sys.stdout = f  # Change the standard output to the file we created.
         print(result)
         sys.stdout = original_stdout
     context = {'item_list': result}

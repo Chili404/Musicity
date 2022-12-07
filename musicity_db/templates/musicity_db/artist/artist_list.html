@@ -22,7 +22,7 @@
                     </a>
                     <div>
                         <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"  href="#artistnamecollapse" aria-expanded="false" aria-haspopup="true" style="color:#dbdbdb ">
-                            Enter Artist Name
+                            Search
                         </button>
                         <div class="collapse" id="artistnamecollapse">
                             <form method="POST" action="">
@@ -44,6 +44,22 @@
                     <a href="{% url 'artist_sort_dec' '-location' %}">
                         <i class="fa-solid fa-angle-up" style="color:gray"></i>
                     </a>
+                    <div>
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"  href="#artistlocationcollapse" aria-expanded="false" aria-haspopup="true" style="color:#dbdbdb ">
+                            Enter Artist Location
+                        </button>
+                        <div class="collapse" id="artistlocationcollapse">
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                {{formLocation|crispy}}
+                                <div class="text-center">
+                                    <input type="submit" name="query_artist_location" style=" appearance:none;
+                                    -webkit-appearance:none; border-radius:10px; background-color:#28A745;
+                                    color:White; font-weight:600; border-width: 1px; font-family:Tahoma, sans-serif; font-style: normal;"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </td>
                 <td>
                     Label
@@ -53,6 +69,22 @@
                     <a href="{% url 'artist_sort_dec' '-location' %}">
                         <i class="fa-solid fa-angle-up" style="color:gray"></i>
                     </a>
+                    <div>
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"  href="#artistlabelcollapse" aria-expanded="false" aria-haspopup="true" style="color:#dbdbdb ">
+                            Select Artist Label
+                        </button>
+                        <div class="collapse" id="artistlabelcollapse">
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                {{formLabel|crispy}}
+                                <div class="text-center">
+                                    <input type="submit" name="query_artist_label" style=" appearance:none;
+                                    -webkit-appearance:none; border-radius:10px; background-color:#28A745;
+                                    color:White; font-weight:600; border-width: 1px; font-family:Tahoma, sans-serif; font-style: normal;"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </td>
                 <td>
                     <div class="text-center">
