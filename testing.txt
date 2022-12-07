@@ -1,1 +1,1 @@
-((17, 1, 'Know Yourself', 'Drake', "If You're Reading This It's Too Late", 123456789, '123.5 Million', 'ON FIRE!!'), (16, 2, 'Born Yesterday', 'Quadeca', "I Didn't Mean To Haunt You", 1277217, '1.28 Million', 'Hot'), (18, 3, 'Demons', 'Joji', 'In Tongues', 123554, '123554', 'Heating Up'))
+((17, 1, 'Know Yourself', 'Drake', "If You're Reading This It's Too Late", 123456789, '123.5 Million', 'ON FIRE!!'), (18, 2, 'Demons', 'Joji', 'In Tongues', 123554, '123554', 'Heating Up'), (16, 3, 'Born Yesterday', 'Quadeca', "I Didn't Mean To Haunt You", 12, '12', 'Smoldering'))
