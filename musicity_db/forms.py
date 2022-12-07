@@ -126,3 +126,9 @@ class LabelForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(LabelForm, self).__init__(*args, **kwargs)
+
+class LabelNameQueryForm(forms.Form):
+    name = forms.CharField(label="Enter Label Name")
+
+class LabelLocationQueryForm(forms.Form):
+    location = forms.CharField(label="Enter Label Location")

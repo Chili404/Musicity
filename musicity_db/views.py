@@ -301,7 +301,29 @@ def artist_sort_dec(request, header):
 
 def label_list(request):
     label_list = Label.objects.all().order_by('name')
-    context = {'label_list': label_list}
+    form_name = LabelNameQueryForm(request.POST or None)
+    form_location = LabelLocationQueryForm(request.POST or None)
+
+    if request.method == "POST":
+        if 'query_name' in request.POST:
+            form_name = LabelNameQueryForm(request.POST)
+            if form_name.is_valid():
+                cursor = connection.cursor()
+                statement = "call QueryLabelName(\"{0}\")".format(form_name.cleaned_data['name'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                label_list = Label.objects.filter(pk__in=(o[0] for o in result))
+        
+        elif 'query_location' in request.POST:
+            form_location = LabelLocationQueryForm(request.POST)
+            if form_location.is_valid():
+                cursor = connection.cursor()
+                statement = "call QueryLabelLocation(\"{0}\")".format(form_location.cleaned_data['location'])
+                cursor.execute(statement)
+                result = cursor.fetchall()
+                label_list = Label.objects.filter(pk__in=(o[0] for o in result))
+
+    context = {'label_list': label_list, 'formName':form_name, 'formLocation':form_location}
     return render(request, "musicity_db/label/label_list.html", context)
 
 

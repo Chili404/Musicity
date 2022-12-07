@@ -144,6 +144,36 @@ END//
 DELIMITER ;
 
 #-----------------------------------------------------
+#--------------------Query Label Name----------------
+#-----------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryLabelName;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryLabelName(IN in_name varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_label
+	WHERE name = in_name;
+END//
+DELIMITER ;
+
+#---------------------------------------------------------
+#--------------------Query Label Location----------------
+#---------------------------------------------------------
+USE music;
+DROP PROCEDURE IF EXISTS QueryLabelLocation;
+
+DELIMITER //
+USE music //
+CREATE PROCEDURE QueryLabelLocation(IN in_location varchar(100))
+BEGIN
+	SELECT * FROM musicity_db_label
+	WHERE location = in_location;
+END//
+DELIMITER ;
+
+#-----------------------------------------------------
 #--------------------Query Artist Name----------------
 #-----------------------------------------------------
 USE music;
