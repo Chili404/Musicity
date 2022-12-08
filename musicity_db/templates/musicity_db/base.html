@@ -3,6 +3,8 @@
 <head>
     <style>
         h1 {text-align: center;}
+        button {border: none;
+                background-color: transparent;}
     </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,9 +20,13 @@
         <div class="div.col-md-10.offset-md-1 mt-5">
             <div class="jumbotron">
                 <h1 class="display-4">
-                    <img src="https://americansongwriter.com/wp-content/uploads/2012/09/spotify5.png" alt = "logo"
-                    style="width:60px;height:60px;"">
-                    Musicity
+                    <div class="text-center">
+                        <a href="{% url 'home' %}">
+                            <img src="https://americansongwriter.com/wp-content/uploads/2012/09/spotify5.png" alt = "logo"
+                            style="width:60px;height:60px;"">
+                            <big style="font-size:50px">Musicity</big>
+                        </a>
+                    </div>
                 </h1>
                 <!--<p class="lead font-italic">Demo</p>-->
                 <hr class="my-4">
