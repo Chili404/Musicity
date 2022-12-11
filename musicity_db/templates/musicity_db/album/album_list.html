@@ -1,4 +1,5 @@
 {% extends "musicity_db/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <a href="{% url 'home' %}" class="btn">
@@ -19,6 +20,22 @@
                     <a href="{% url 'album_sort_dec' '-name' %}" >
                         <i class="fa-solid fa-angle-up" style="color:gray"></i>
                     </a>
+                    <div>
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"  href="#namecollapse" aria-expanded="false" aria-haspopup="true" style="color:#dbdbdb ">
+                            Search
+                        </button>
+                        <div class="collapse" id="namecollapse">
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                {{formName|crispy}}
+                                <div class="text-center">
+                                    <input type="submit" name="query_name" style=" appearance:none;
+                                    -webkit-appearance:none; border-radius:10px; background-color:#28A745;
+                                    color:White; font-weight:600; border-width: 1px; font-family:Tahoma, sans-serif; font-style: normal;"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </td>
                 <td> Genre 
                     <a href="{% url 'album_sort_asc' 'genre' %}" >
@@ -27,6 +44,22 @@
                     <a href="{% url 'album_sort_dec' '-genre' %}" >
                         <i class="fa-solid fa-angle-up" style="color:gray"></i>
                     </a>
+                    <div>
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"  href="#genrecollapse" aria-expanded="false" aria-haspopup="true" style="color:#dbdbdb ">
+                            Select Genre
+                        </button>
+                        <div class="collapse" id="genrecollapse">
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                {{formGenre|crispy}}
+                                <div class="text-center">
+                                    <input type="submit" name="query_genre" style=" appearance:none;
+                                    -webkit-appearance:none; border-radius:10px; background-color:#28A745;
+                                    color:White; font-weight:600; border-width: 1px; font-family:Tahoma, sans-serif; font-style: normal;"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </td>
                 <td> Release Date
                     <a href="{% url 'album_sort_asc' 'release_date' %}" >
@@ -43,6 +76,22 @@
                     <a href="{% url 'album_sort_dec' '-artist_id' %}" >
                         <i class="fa-solid fa-angle-up" style="color:gray"></i>
                     </a>
+                    <div>
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"  href="#artistcollapse" aria-expanded="false" aria-haspopup="true" style="color:#dbdbdb ">
+                            Select Artist
+                        </button>
+                        <div class="collapse" id="artistcollapse">
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                {{formArtist|crispy}}
+                                <div class="text-center">
+                                    <input type="submit" name="query_artist" style=" appearance:none;
+                                    -webkit-appearance:none; border-radius:10px; background-color:#28A745;
+                                    color:White; font-weight:600; border-width: 1px; font-family:Tahoma, sans-serif; font-style: normal;"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </td>
                 <td>
                     <div class="text-center">

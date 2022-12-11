@@ -10,6 +10,8 @@ urlpatterns = [
     path('track/delete/<int:id>', views.track_delete, name="track_delete"),
     path('track/<str:header>', views.track_sort_asc, name="track_sort_asc"),
     path('track/<str:header>', views.track_sort_dec, name="track_sort_dec"),
+    path('track/stream/<int:id>', views.stream_form, name="stream_update"),
+
 
     # album urls
     path('album/', views.album_list, name="album_list"),
@@ -34,4 +36,9 @@ urlpatterns = [
     path('label/delete/<int:id>/', views.label_delete, name="label_delete"),
     path('label/<str:header>', views.label_sort_asc, name="label_sort_asc"),
     path('label/<str:header>', views.label_sort_dec, name="label_sort_dec"),
+
+    #top urls
+    path('top10/', views.top_list, name='top_list'),
+    path('top10/<str:header>', views.label_sort_asc, name="label_sort_asc"),
+    path('top10/<str:header>', views.label_sort_dec, name="label_sort_dec"),
 ]

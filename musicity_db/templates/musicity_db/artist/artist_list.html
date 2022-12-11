@@ -1,0 +1,123 @@
+{% extends "musicity_db/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<a href="{% url 'home' %}" class="btn">
+    <i class="fa-solid fa-arrow-left-long"></i> Back
+</a>
+<h3 class="display-4 text-center" style="font-size: 2.5em">
+    <i class="fa fa-user" aria-hidden="true"></i>
+    Artists
+</h3>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-dark">
+        <thead class="thead-dark font-weight-bold">
+            <tr>
+                <td> Name
+                    <a href="{% url 'artist_sort_asc' 'name' %}">
+                        <i class="fa-solid fa-angle-down" style="color:gray"></i>
+                    </a>
+                    <a href="{% url 'artist_sort_dec' '-name' %}" >
+                        <i class="fa-solid fa-angle-up" style="color:gray"></i>
+                    </a>
+                    <div>
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"  href="#artistnamecollapse" aria-expanded="false" aria-haspopup="true" style="color:#dbdbdb ">
+                            Search
+                        </button>
+                        <div class="collapse" id="artistnamecollapse">
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                {{formArtist|crispy}}
+                                <div class="text-center">
+                                    <input type="submit" name="query_artist_name" style=" appearance:none;
+                                    -webkit-appearance:none; border-radius:10px; background-color:#28A745;
+                                    color:White; font-weight:600; border-width: 1px; font-family:Tahoma, sans-serif; font-style: normal;"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+                <td> Location
+                    <a href="{% url 'artist_sort_asc' 'location' %}">
+                        <i class="fa-solid fa-angle-down" style="color:gray"></i>
+                    </a>
+                    <a href="{% url 'artist_sort_dec' '-location' %}">
+                        <i class="fa-solid fa-angle-up" style="color:gray"></i>
+                    </a>
+                    <div>
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"  href="#artistlocationcollapse" aria-expanded="false" aria-haspopup="true" style="color:#dbdbdb ">
+                            Enter Artist Location
+                        </button>
+                        <div class="collapse" id="artistlocationcollapse">
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                {{formLocation|crispy}}
+                                <div class="text-center">
+                                    <input type="submit" name="query_artist_location" style=" appearance:none;
+                                    -webkit-appearance:none; border-radius:10px; background-color:#28A745;
+                                    color:White; font-weight:600; border-width: 1px; font-family:Tahoma, sans-serif; font-style: normal;"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    Label
+                      <a href="{% url 'artist_sort_asc' 'location' %}">
+                        <i class="fa-solid fa-angle-down" style="color:gray"></i>
+                    </a>
+                    <a href="{% url 'artist_sort_dec' '-location' %}">
+                        <i class="fa-solid fa-angle-up" style="color:gray"></i>
+                    </a>
+                    <div>
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"  href="#artistlabelcollapse" aria-expanded="false" aria-haspopup="true" style="color:#dbdbdb ">
+                            Select Artist Label
+                        </button>
+                        <div class="collapse" id="artistlabelcollapse">
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                {{formLabel|crispy}}
+                                <div class="text-center">
+                                    <input type="submit" name="query_artist_label" style=" appearance:none;
+                                    -webkit-appearance:none; border-radius:10px; background-color:#28A745;
+                                    color:White; font-weight:600; border-width: 1px; font-family:Tahoma, sans-serif; font-style: normal;"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="text-center">
+                        <a href="{% url 'artist_insert' %}" class="btn btn-success">
+                            <i class="fas fa-plus"></i> Add New
+                        </a>
+                    </div>
+                </td>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for artist in artist_list %}
+                <tr>
+                    <td>{{artist.name}}</td>
+                    <td>{{artist.location}}</td>
+                    <td>{{artist.label_id}}</td>
+                    <td>
+                        <div class="text-center">
+                            <a href="{% url 'artist_update' artist.id %}" class="btn text-secondary" px-0>
+                                <i class="far fa-edit fa-lg"></i>
+                            </a>
+                            <form action="{% url 'artist_delete' artist.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button class="submit btn">
+                                    <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
