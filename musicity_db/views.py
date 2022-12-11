@@ -106,6 +106,9 @@ def track_form(request, id=0):
             form = TrackForm(request.POST, instance=track)
         if form.is_valid():
             form.save()
+            cursor = connection.cursor()
+            statement = "call AddStreams()"
+            cursor.execute(statement)
         return redirect('/musicity/track/')
 
 
