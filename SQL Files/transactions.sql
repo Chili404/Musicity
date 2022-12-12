@@ -1,7 +1,7 @@
 #Transactions
 #Delete undefined tracks From Track's db
 #Mainly for safety so we can rollback
-#READ UNCOMMITTED as we don't mind if aaplication rads the data before it commits
+#READ COMMITTED as we don't want multiple transactions deleting same track
 SET TRANSACTION  ISOLATION LEVEL READ committed;
 START TRANSACTION;
 	DELETE FROM musicity_db_track WHERE duration <= 0;
@@ -9,7 +9,7 @@ COMMIT;
 ROLLBACK;
 
 #SET track_streams if don't exist
-#Repeatble read becasue we only want to add definite tracks to the streams table not ones to be deleted
+#Repeatble read becasue we only want to add definite tracks to the streams table not ones to be deleted and multiple transactions should not add same track to track_streams
 SET TRANSACTION  ISOLATION LEVEL REPEATABLE READ;
 DROP PROCEDURE IF EXISTS AddStreams;
 DELIMITER //
@@ -38,7 +38,7 @@ DELIMITER ;
 call AddStreams();
 
 #Check to add track to top 100
-#READ UNCOMMITTED AS IT SHOULD UPDATE TO NON_CIMMITED TRANSACTIONS TO BE MORE ACCURATE
+#READ UNCOMMITTED as operation only reads data and read uncommited has teh most oncurrency when reading data which is faster
 DROP PROCEDURE IF EXISTS Top10;
 SET TRANSACTION  ISOLATION LEVEL READ UNCOMMITTED;
 
