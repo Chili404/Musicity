@@ -1,0 +1,1 @@
+web gunicorn musicity.wsgi:application --log-file -
